@@ -135,6 +135,7 @@ dependencies {
     compile 'com.facebook.react:react-native:+'
     // From node_modules
     compile files('libs/Android_Map3D_SDK_V4.1.2_20161104.jar')
+    compile project(':react-native-sqlite-storage')
 }
 
 // Run this once to be able to run the application with BUCK

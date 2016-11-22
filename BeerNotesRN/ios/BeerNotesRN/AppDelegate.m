@@ -34,7 +34,8 @@
   [self.window makeKeyAndVisible];
   //配置高德Key至AppDelegate.m文件
   [AMapServices sharedServices].apiKey = @"ff8219f0a59a5f912fa7003add4d93de";
-  
+  NSString *homeDir = NSHomeDirectory();
+  NSLog(@"%@", homeDir);
   return YES;
 }
 

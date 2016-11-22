@@ -5,7 +5,6 @@
  */
 
 import React, { Component } from 'react';
-
 import {
   AppRegistry,
   View,
@@ -13,12 +12,13 @@ import {
 } from 'react-native';
 
 import NavUitl from './app/navutil'
+import BNConfig from './app/config'
 
 export default class BeerNotesRN extends Component {
   render() {
     return (
       <Navigator
-          initialRoute={{name: 'main', index: 0, id:'main'}}
+          initialRoute={{name: BNConfig.getEntrance(), index: 0, id:BNConfig.getEntrance()}}
           renderScene={(route, navigator) => NavUitl.renderPage(route,navigator)}
       />
     );
