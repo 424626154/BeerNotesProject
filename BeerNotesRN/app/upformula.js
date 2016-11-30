@@ -13,8 +13,8 @@ import {
 import NavigationBar from 'react-native-navbar';
 import SQLiteHelper from './sqlitehelper';
 import Spinner from 'react-native-loading-spinner-overlay';
-
-var vc;
+import TimerMixin from 'react-timer-mixin';
+// var vc;
 var sqlitehelper;
 export default class UpFormulaVC extends React.Component {
   _goBack(){
@@ -22,11 +22,14 @@ export default class UpFormulaVC extends React.Component {
     this.props.nav.pop();
   }
   _updateCallback(errocode){
-    vc.setState({
+    this.setState({
       visible: false
     })
     if(errocode == 0){
-      vc._goBack();
+      this.timer = setTimeout(
+      () => { this._goBack(); },
+      100
+      );
     }else{
       alert('修改配方失败')
     }
@@ -37,34 +40,58 @@ export default class UpFormulaVC extends React.Component {
       alert('请输入配方名称')
       return;
     }
+    this.state.malt = +this.state.malt;
+    console.log(Number.isFinite(this.state.malt),this.state.malt);
+    if(Number.isFinite(this.state.malt) == false){
+      alert('请输入正确的麦芽重量格式')
+      return;
+    }
     if (this.state.malt == 0) {
       alert('请输入麦芽重量')
+      return;
+    }
+    this.state.hops = +this.state.hops;
+    console.log(Number.isFinite(this.state.hops),this.state.hops);
+    if(Number.isFinite(this.state.hops) == false){
+      alert('请输入正确的啤酒花重量格式')
       return;
     }
     if (this.state.hops == 0) {
       alert('请输入啤酒花重量')
       return;
     }
+    this.state.yeast = +this.state.yeast;
+    console.log(Number.isFinite(this.state.yeast),this.state.yeast);
+    if(Number.isFinite(this.state.yeast) == false){
+      alert('请输入正确的啤酒花重量格式')
+      return;
+    }
     if (this.state.yeast == 0) {
       alert('请输入酵母重量')
+      return;
+    }
+    this.state.water = +this.state.water;
+    console.log(Number.isFinite(this.state.water),this.state.water);
+    if(Number.isFinite(this.state.water) == false){
+      alert('请输入正确的水重量格式')
       return;
     }
     if (this.state.water == 0) {
       alert('请输入水重量')
       return;
     }
-    vc.setState({
+    this.setState({
       visible: true
     })
     sqlitehelper.updateFormulaDB(this.state.uprowid,this.state.fname,this.state.malt,this.state.hops,this.state.yeast,this.state.water,this._updateCallback);
   }
   _queryCallback(errocode,item){
     console.log(errocode,item.id)
-    vc.setState({
+    this.setState({
       visible: false
     })
     if(errocode == 0){
-      vc.setState({
+      this.setState({
         fname:item.fname,
         malt:item.malt,
         hops:item.hops,
@@ -77,13 +104,16 @@ export default class UpFormulaVC extends React.Component {
     }
   }
   _query(rowid){
-    console.log(rowid)
     sqlitehelper.queryOneFormulaDB(rowid,this._queryCallback);
   }
 
   constructor(props){
     super(props);
-    vc = this;
+    // vc = this;
+    this._goBack = this._goBack.bind(this);
+    this._updateCallback = this._updateCallback.bind(this);
+    this._queryCallback = this._queryCallback.bind(this);
+
     this.state = {
       fname:'',
       malt:'',
@@ -96,7 +126,7 @@ export default class UpFormulaVC extends React.Component {
   }
   componentDidMount() {
       sqlitehelper = new SQLiteHelper();
-      sqlitehelper.openDB();
+      // sqlitehelper.openDB();
       this.setState({
            uprowid:this.props.rowid,
            visible: true
@@ -104,7 +134,8 @@ export default class UpFormulaVC extends React.Component {
        this._query(this.props.rowid);
   }
   componentWillUnmount(){
-      sqlitehelper.closeDB();
+      // sqlitehelper.closeDB();
+      this.timer && clearTimeout(this.timer);
   }
   render(){
     const leftButtonConfig = {
@@ -140,7 +171,7 @@ export default class UpFormulaVC extends React.Component {
                <TextInput
                   style={styles.text}
                   onChangeText={(text) => this.setState({malt:text})}
-                  value={this.state.malt}
+                  value={this.state.malt+''}
                 />
              </View>
            </View>
@@ -150,7 +181,7 @@ export default class UpFormulaVC extends React.Component {
               <TextInput
                  style={styles.text}
                  onChangeText={(text) => this.setState({hops:text})}
-                 value={this.state.hops}
+                 value={this.state.hops+''}
                />
             </View>
           </View>
@@ -160,7 +191,7 @@ export default class UpFormulaVC extends React.Component {
              <TextInput
                 style={styles.text}
                 onChangeText={(text) => this.setState({yeast:text})}
-                value={this.state.yeast}
+                value={this.state.yeast+''}
               />
            </View>
          </View>
@@ -170,7 +201,7 @@ export default class UpFormulaVC extends React.Component {
             <TextInput
                style={styles.text}
                onChangeText={(text) => this.setState({water:text})}
-               value={this.state.water}
+               value={this.state.water+''}
              />
           </View>
         </View>
@@ -194,7 +225,7 @@ var styles = StyleSheet.create({
   text: {
     flex: 1,
     fontSize:15,
-    height: 32,
+    height: 48,
     textAlign:'left',
   },
 });

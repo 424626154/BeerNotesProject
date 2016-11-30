@@ -16,17 +16,17 @@ import SQLiteHelper from './sqlitehelper';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 var fData = [];
-var vc ;
+// var vc ;
 var ds;
-var sqlitehelper;
+let sqlitehelper;
 export default class FormulaVC extends React.Component {
   _goBack(){
     this.props.nav.pop();
   }
   _addFormula(){
     this.props.nav.push({
-      id:'addformula',
-      name:'addformula'
+      id:'addformulavc',
+      name:'addformulavc'
     })
   }
   _goUpFormula(rowid){
@@ -39,29 +39,35 @@ export default class FormulaVC extends React.Component {
     })
   }
   _refesh(){
-    vc._query();
+    this._query();
   }
   _queryCllback(errocode,rows){
-    vc.setState({
+    this.setState({
       visible: false
     })
+    console.log('_queryCllback',this.state.visible,errocode,rows);
     if(errocode == 0 ){
       fData = [];
       for(var i = 0 ; i < rows.length;i++){
         fData.push(rows.item(i));
       }
-      vc.setState({
+      console.log(fData);
+      this.setState({
         dataSource: ds.cloneWithRows(fData)
       })
     }else{
-      alert(errocode);
+      console.log('_queryCllback',errocode);
     }
   }
   _query(){
-    sqlitehelper.queryAllFormulaDB(this._queryCllback);
+    this.setState({
+      visible: true
+    })
+    console.log('_query',this.state.visible);
+    sqlitehelper.queryAllFormulaDB(1,this._queryCllback);
   }
   _deleteCllback(errocode,rowid){
-    vc.setState({
+    this.setState({
       visible: false
     })
     if(errocode == 0){
@@ -71,8 +77,7 @@ export default class FormulaVC extends React.Component {
             fData.splice(i,1);
           }
         }
-        console.log(fData.length)
-        vc.setState({
+        this.setState({
           dataSource: ds.cloneWithRows(fData)
         })
       }
@@ -82,7 +87,7 @@ export default class FormulaVC extends React.Component {
   }
 
    _delRow(rowID){
-     vc.setState({
+     this.setState({
        visible: true
      })
      var rowid = fData[rowID].id;//.rowid;
@@ -155,38 +160,39 @@ export default class FormulaVC extends React.Component {
 
   constructor(props) {
     super(props);
-    vc = this;
+    // vc = this;
+    this._queryCllback = this._queryCllback.bind(this);
+    this._refesh = this._refesh.bind(this);
+    this._deleteCllback = this._deleteCllback.bind(this);
+
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(fData),
-      visible: false
+      visible: true
     };
   }
   componentDidMount() {
       sqlitehelper = new SQLiteHelper();
-      sqlitehelper.openDB();
-      this._query();
+      // sqlitehelper.openDB();
       this.subscription = DeviceEventEmitter.addListener('refesh',this._refesh);
-      vc.setState({
-        visible: true
-      })
+      this._query();
   }
   componentWillUnmount(){
-      sqlitehelper.closeDB();
+      // sqlitehelper.closeDB();
       this.subscription.remove();
   }
   render(){
-    // const leftButtonConfig = {
-    //    title: '返回',
-    //    handler: () => this._goBack(),
-    //  };
+    const leftButtonConfig = {
+       title: '返回',
+       handler: () => this._goBack(),
+     };
     var titleConfig = {
       title: '我的配方',
     };
     return(
       <View style={{flex: 1}}>
       <NavigationBar
-        // leftButton={leftButtonConfig}
+        leftButton={leftButtonConfig}
         title={titleConfig} />
         <ListView
           enableEmptySections={true}

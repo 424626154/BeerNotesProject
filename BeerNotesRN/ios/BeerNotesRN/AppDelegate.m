@@ -12,6 +12,7 @@
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
+#import <IQKeyboardManager.h>
 
 @implementation AppDelegate
 
@@ -36,6 +37,9 @@
   [AMapServices sharedServices].apiKey = @"ff8219f0a59a5f912fa7003add4d93de";
   NSString *homeDir = NSHomeDirectory();
   NSLog(@"%@", homeDir);
+  
+  [IQKeyboardManager sharedManager].enable = YES;
+  
   return YES;
 }
 

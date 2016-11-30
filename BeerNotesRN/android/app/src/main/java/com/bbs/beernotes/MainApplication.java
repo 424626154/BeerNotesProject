@@ -1,21 +1,24 @@
 package com.bbs.beernotes;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.bbs.beernotes.rnview.AppReactPackage;
 import com.facebook.react.ReactApplication;
-import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-import com.bbs.beernotes.BuildConfig;
 import org.pgsqlite.SQLitePluginPackage;
-
+//import com.idescout.sql.SqlScoutServer;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+//    SqlScoutServer.create(this, getPackageName());
+  }
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override

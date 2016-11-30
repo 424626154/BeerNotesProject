@@ -13,15 +13,19 @@ import {
 
 import NavUitl from './app/navutil'
 import BNConfig from './app/config'
-
+var entrance;
 export default class BeerNotesRN extends Component {
   render() {
     return (
       <Navigator
-          initialRoute={{name: BNConfig.getEntrance(), index: 0, id:BNConfig.getEntrance()}}
+          initialRoute={{name:entrance , index: 0, id:entrance}}
           renderScene={(route, navigator) => NavUitl.renderPage(route,navigator)}
       />
     );
+  }
+  constructor(props){
+    super(props);
+    entrance = BNConfig.getEntrance()
   }
 }
 

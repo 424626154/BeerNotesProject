@@ -14,19 +14,24 @@ import NavigationBar from 'react-native-navbar';
 import SQLiteHelper from './sqlitehelper';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-var vc;
-var sqlitehelper;
+// var vc;
+let sqlitehelper;
 export default class AddFormulaVC extends React.Component {
   _goBack(){
     DeviceEventEmitter.emit('refesh');
     this.props.nav.pop();
   }
-  _saveCallback(errocode){
-    vc.setState({
+  _saveCallback(errocode,fid){
+    this.setState({
       visible: false
     })
     if(errocode == 0){
-      vc._goBack();
+      this.timer = setTimeout(
+      () => {
+        this._goBack();
+      },
+      100
+      );
     }else{
       alert('添加配方失败')
     }
@@ -37,30 +42,58 @@ export default class AddFormulaVC extends React.Component {
       alert('请输入配方名称')
       return;
     }
+    this.state.malt = +this.state.malt;
+    console.log(Number.isFinite(this.state.malt),this.state.malt);
+    if(Number.isFinite(this.state.malt) == false){
+      alert('请输入正确的麦芽重量格式')
+      return;
+    }
     if (this.state.malt == 0) {
       alert('请输入麦芽重量')
+      return;
+    }
+    this.state.hops = +this.state.hops;
+    console.log(Number.isFinite(this.state.hops),this.state.hops);
+    if(Number.isFinite(this.state.hops) == false){
+      alert('请输入正确的啤酒花重量格式')
       return;
     }
     if (this.state.hops == 0) {
       alert('请输入啤酒花重量')
       return;
     }
+    this.state.yeast = +this.state.yeast;
+    console.log(Number.isFinite(this.state.yeast),this.state.yeast);
+    if(Number.isFinite(this.state.yeast) == false){
+      alert('请输入正确的啤酒花重量格式')
+      return;
+    }
     if (this.state.yeast == 0) {
       alert('请输入酵母重量')
+      return;
+    }
+    this.state.water = +this.state.water;
+    console.log(Number.isFinite(this.state.water),this.state.water);
+    if(Number.isFinite(this.state.water) == false){
+      alert('请输入正确的水重量格式')
       return;
     }
     if (this.state.water == 0) {
       alert('请输入水重量')
       return;
     }
-    vc.setState({
+    this.setState({
       visible: true
     })
-    sqlitehelper.insertFormulaDB(this.state.fname,this.state.malt,this.state.hops,this.state.yeast,this.state.water,this._saveCallback);
+    sqlitehelper.insertFormulaDB(this.state.fname,this.state.malt,this.state.hops,this.state.yeast,this.state.water,1,this._saveCallback);
   }
   constructor(props){
     super(props);
-    vc = this;
+    // vc = this;
+
+    this._saveCallback = this._saveCallback.bind(this);
+    this._goBack = this._goBack.bind(this);
+
     this.state = {
       fname:'',
       malt:'',
@@ -72,21 +105,21 @@ export default class AddFormulaVC extends React.Component {
   }
   componentDidMount() {
       sqlitehelper = new SQLiteHelper();
-      sqlitehelper.openDB();
+      // sqlitehelper.openDB();
   }
   componentWillUnmount(){
-      sqlitehelper.closeDB();
+      // sqlitehelper.closeDB();
   }
   render(){
     const leftButtonConfig = {
        title: '返回',
        handler: () => this._goBack(),
      };
-     var rightButtonConfig = {
+     const rightButtonConfig = {
       title: '保存',
       handler:() => this._save(),
     };
-    var titleConfig = {
+    const titleConfig = {
       title: '添加配方',
     };
     return(
@@ -110,8 +143,9 @@ export default class AddFormulaVC extends React.Component {
                <Image style={styles.thumb} source={require('../resource/malt_normal.png')}/>
                <TextInput
                   style={styles.text}
+                  keyboardType='numeric'
                   onChangeText={(text) => this.setState({malt:text})}
-                  value={this.state.malt}
+                  value={this.state.malt+''}
                 />
              </View>
            </View>
@@ -121,7 +155,7 @@ export default class AddFormulaVC extends React.Component {
               <TextInput
                  style={styles.text}
                  onChangeText={(text) => this.setState({hops:text})}
-                 value={this.state.hops}
+                 value={this.state.hops+''}
                />
             </View>
           </View>
@@ -131,7 +165,7 @@ export default class AddFormulaVC extends React.Component {
              <TextInput
                 style={styles.text}
                 onChangeText={(text) => this.setState({yeast:text})}
-                value={this.state.yeast}
+                value={this.state.yeast+''}
               />
            </View>
          </View>
@@ -141,7 +175,7 @@ export default class AddFormulaVC extends React.Component {
             <TextInput
                style={styles.text}
                onChangeText={(text) => this.setState({water:text})}
-               value={this.state.water}
+               value={this.state.water+''}
              />
           </View>
         </View>
@@ -165,7 +199,7 @@ var styles = StyleSheet.create({
   text: {
     flex: 1,
     fontSize:15,
-    height: 32,
+    height: 48,
     textAlign:'left',
   },
 });
