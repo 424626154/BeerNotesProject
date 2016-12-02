@@ -13,10 +13,16 @@ import {
 import NavigationBar from 'react-native-navbar';
 import SQLiteHelper from './sqlitehelper';
 
-var listData= [{
+var listData= [
+  {
   text:'我的配方',
   img:require('../resource/fname_normal.png')
-}];
+  },
+  {
+  text:'酒精度数',
+  img:require('../resource/alcohol_degree_normal.png')
+  }
+];
 var ds = null;
 let sqlitehelper;
 export default class HomeVC extends React.Component {
@@ -29,9 +35,17 @@ export default class HomeVC extends React.Component {
         name:'formulavc'
       })
     }
+    _goAlcoholDegreeVC(){
+      this.props.nav.push({
+        id:'alcoholdegreevc',
+        name:'alcoholdegreevc'
+      })
+    }
     _pressRow(rowID){
       if(rowID == 0 ){
         this._goFormula();
+      }else if(rowID == 1){
+        this._goAlcoholDegreeVC();
       }
     }
     _renderRow(rowData, sectionID, rowID){

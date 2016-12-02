@@ -10,6 +10,7 @@ import UpFormulaVC from "./upformula"
 import AddNotesVC from './addnotesvc'
 import SelectFormulaVC from './selectformulavc'
 import HomeVC from './homevc';
+import AlcoholDegreeVC from './alcoholdegreevc'
 
 export default class NavUitl extends React.Component {
   static renderPage(route, nav) {
@@ -37,6 +38,9 @@ export default class NavUitl extends React.Component {
         break;
       case 'homevc':
         return(<HomeVC nav={nav}/>);
+        break;
+      case 'alcoholdegreevc':
+        return(<AlcoholDegreeVC nav={nav}/>);
         break;
 		}
 	}
