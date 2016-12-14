@@ -21,6 +21,10 @@ var listData= [
   {
   text:'酒精度数',
   img:require('../resource/alcohol_degree_normal.png')
+  },
+  {
+  text:'更多',
+  img:require('../resource/more_normal.png')
   }
 ];
 var ds = null;
@@ -46,6 +50,11 @@ export default class HomeVC extends React.Component {
         this._goFormula();
       }else if(rowID == 1){
         this._goAlcoholDegreeVC();
+      }else if(rowID == 2){
+        this.props.nav.push({
+          id:'morevc',
+          name:'morevc'
+        })
       }
     }
     _renderRow(rowData, sectionID, rowID){
@@ -65,7 +74,6 @@ export default class HomeVC extends React.Component {
 
     constructor(props){
       super(props);
-      console.log('HomeVC');
       this._renderRow = this._renderRow.bind(this)
       ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.state = {

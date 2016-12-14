@@ -22,9 +22,19 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		445E2D5A1DD81B1900A5A326 /* BNMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 445E2D551DD81B1900A5A326 /* BNMapVC.m */; };
-		445E2D5B1DD81B1900A5A326 /* BNMapVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 445E2D571DD81B1900A5A326 /* BNMapVCManager.m */; };
-		445E2D5C1DD81B1900A5A326 /* BNMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445E2D591DD81B1900A5A326 /* BNMapView.m */; };
+		44875D121DF9D1FF00584B57 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 44875D111DF9D1FF00584B57 /* libz.tbd */; };
+		44875D261DF9D20D00584B57 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 44875D251DF9D20D00584B57 /* libsqlite3.tbd */; };
+		44875D281DF9D21800584B57 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44875D271DF9D21800584B57 /* CoreMotion.framework */; };
+		44875D2A1DF9D22200584B57 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44875D291DF9D22200584B57 /* CoreTelephony.framework */; };
+		44875D2C1DF9D22D00584B57 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44875D2B1DF9D22D00584B57 /* SystemConfiguration.framework */; };
+		44C152CB1DFAF944008244D1 /* FeedbcakVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C152CA1DFAF944008244D1 /* FeedbcakVCManager.m */; };
+		44C152E01DFAF976008244D1 /* FeedbcakVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C152DF1DFAF976008244D1 /* FeedbcakVC.m */; };
+		44C152E31DFAF98A008244D1 /* FeedbcakView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C152E21DFAF98A008244D1 /* FeedbcakView.m */; };
+		44D528221DFF1435003BBBF1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44D527A51DFF12A2003BBBF1 /* UserNotifications.framework */; };
+		44D528311DFF197A003BBBF1 /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44D5282F1DFF197A003BBBF1 /* libUMessage_Sdk_1.4.0.a */; };
+		44F8A4E01DFB1DCC00D26EA5 /* yw_1222.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 44F8A4DF1DFB1DCC00D26EA5 /* yw_1222.jpg */; };
+		44F8A4EE1DFBE50200D26EA5 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8A4ED1DFBE50200D26EA5 /* AppManager.m */; };
+		44F8A5201DFCF96700D26EA5 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8A51F1DFCF96700D26EA5 /* AppConfig.m */; };
 		45E9994D283EE555F5F8CE8A /* libPods-BeerNotesRN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D73AAD1AA8948D199B13AE1 /* libPods-BeerNotesRN.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		B40D03E4AB4A42D2A3088E2F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE329EB9AEBA4C33AE864FDC /* libsqlite3.0.tbd */; };
@@ -190,12 +200,27 @@
 		1D73AAD1AA8948D199B13AE1 /* libPods-BeerNotesRN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeerNotesRN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26B8F69B34F34746B18F362F /* libSQLite.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSQLite.a; sourceTree = "<group>"; };
 		2ED7D2F66A12A7808DFCCD0A /* Pods-BeerNotesRN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeerNotesRN.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BeerNotesRN/Pods-BeerNotesRN.debug.xcconfig"; sourceTree = "<group>"; };
-		445E2D541DD81B1900A5A326 /* BNMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNMapVC.h; sourceTree = "<group>"; };
-		445E2D551DD81B1900A5A326 /* BNMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNMapVC.m; sourceTree = "<group>"; };
-		445E2D561DD81B1900A5A326 /* BNMapVCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNMapVCManager.h; sourceTree = "<group>"; };
-		445E2D571DD81B1900A5A326 /* BNMapVCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNMapVCManager.m; sourceTree = "<group>"; };
-		445E2D581DD81B1900A5A326 /* BNMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNMapView.h; sourceTree = "<group>"; };
-		445E2D591DD81B1900A5A326 /* BNMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNMapView.m; sourceTree = "<group>"; };
+		448604D51DF3DBB4003E733F /* BeerNotesRN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = BeerNotesRN.entitlements; path = BeerNotesRN/BeerNotesRN.entitlements; sourceTree = "<group>"; };
+		44875D111DF9D1FF00584B57 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		44875D251DF9D20D00584B57 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		44875D271DF9D21800584B57 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		44875D291DF9D22200584B57 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		44875D2B1DF9D22D00584B57 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		44C152C91DFAF944008244D1 /* FeedbcakVCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbcakVCManager.h; sourceTree = "<group>"; };
+		44C152CA1DFAF944008244D1 /* FeedbcakVCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbcakVCManager.m; sourceTree = "<group>"; };
+		44C152DE1DFAF976008244D1 /* FeedbcakVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbcakVC.h; sourceTree = "<group>"; };
+		44C152DF1DFAF976008244D1 /* FeedbcakVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbcakVC.m; sourceTree = "<group>"; };
+		44C152E11DFAF98A008244D1 /* FeedbcakView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbcakView.h; sourceTree = "<group>"; };
+		44C152E21DFAF98A008244D1 /* FeedbcakView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbcakView.m; sourceTree = "<group>"; };
+		44D527A51DFF12A2003BBBF1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		44D527A71DFF132F003BBBF1 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		44D5282F1DFF197A003BBBF1 /* libUMessage_Sdk_1.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.4.0.a; sourceTree = "<group>"; };
+		44D528301DFF197A003BBBF1 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		44F8A4DF1DFB1DCC00D26EA5 /* yw_1222.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yw_1222.jpg; sourceTree = "<group>"; };
+		44F8A4EC1DFBE50200D26EA5 /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
+		44F8A4ED1DFBE50200D26EA5 /* AppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppManager.m; sourceTree = "<group>"; };
+		44F8A51F1DFCF96700D26EA5 /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
+		44F8A5211DFCF98000D26EA5 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		46B9A3B81233AAFDD6491028 /* libPods-BeerNotesRNTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeerNotesRNTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A7BD2DA75824779859A379B /* SQLite.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../node_modules/react-native-sqlite-storage/src/ios/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		639E4ABEB06B4C3CE80A09B7 /* Pods-BeerNotesRN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeerNotesRN.release.xcconfig"; path = "Pods/Target Support Files/Pods-BeerNotesRN/Pods-BeerNotesRN.release.xcconfig"; sourceTree = "<group>"; };
@@ -217,8 +242,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44D528221DFF1435003BBBF1 /* UserNotifications.framework in Frameworks */,
+				44875D2C1DF9D22D00584B57 /* SystemConfiguration.framework in Frameworks */,
+				44875D2A1DF9D22200584B57 /* CoreTelephony.framework in Frameworks */,
+				44875D281DF9D21800584B57 /* CoreMotion.framework in Frameworks */,
+				44875D261DF9D20D00584B57 /* libsqlite3.tbd in Frameworks */,
+				44875D121DF9D1FF00584B57 /* libz.tbd in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				44D528311DFF197A003BBBF1 /* libUMessage_Sdk_1.4.0.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
@@ -316,6 +348,8 @@
 		13B07FAE1A68108700A75B9A /* BeerNotesRN */ = {
 			isa = PBXGroup;
 			children = (
+				44F8A4DF1DFB1DCC00D26EA5 /* yw_1222.jpg */,
+				448604D51DF3DBB4003E733F /* BeerNotesRN.entitlements */,
 				445E2D531DD81B1900A5A326 /* rnview */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -340,6 +374,13 @@
 		3498BF364BC0448523404172 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				44D527A71DFF132F003BBBF1 /* UserNotificationsUI.framework */,
+				44D527A51DFF12A2003BBBF1 /* UserNotifications.framework */,
+				44875D2B1DF9D22D00584B57 /* SystemConfiguration.framework */,
+				44875D291DF9D22200584B57 /* CoreTelephony.framework */,
+				44875D271DF9D21800584B57 /* CoreMotion.framework */,
+				44875D251DF9D20D00584B57 /* libsqlite3.tbd */,
+				44875D111DF9D1FF00584B57 /* libz.tbd */,
 				1D73AAD1AA8948D199B13AE1 /* libPods-BeerNotesRN.a */,
 				46B9A3B81233AAFDD6491028 /* libPods-BeerNotesRNTests.a */,
 				CE329EB9AEBA4C33AE864FDC /* libsqlite3.0.tbd */,
@@ -350,12 +391,16 @@
 		445E2D531DD81B1900A5A326 /* rnview */ = {
 			isa = PBXGroup;
 			children = (
-				445E2D541DD81B1900A5A326 /* BNMapVC.h */,
-				445E2D551DD81B1900A5A326 /* BNMapVC.m */,
-				445E2D561DD81B1900A5A326 /* BNMapVCManager.h */,
-				445E2D571DD81B1900A5A326 /* BNMapVCManager.m */,
-				445E2D581DD81B1900A5A326 /* BNMapView.h */,
-				445E2D591DD81B1900A5A326 /* BNMapView.m */,
+				44C152C91DFAF944008244D1 /* FeedbcakVCManager.h */,
+				44C152CA1DFAF944008244D1 /* FeedbcakVCManager.m */,
+				44C152DE1DFAF976008244D1 /* FeedbcakVC.h */,
+				44C152DF1DFAF976008244D1 /* FeedbcakVC.m */,
+				44C152E11DFAF98A008244D1 /* FeedbcakView.h */,
+				44C152E21DFAF98A008244D1 /* FeedbcakView.m */,
+				44F8A4EC1DFBE50200D26EA5 /* AppManager.h */,
+				44F8A4ED1DFBE50200D26EA5 /* AppManager.m */,
+				44F8A5211DFCF98000D26EA5 /* AppConfig.h */,
+				44F8A51F1DFCF96700D26EA5 /* AppConfig.m */,
 			);
 			name = rnview;
 			path = BeerNotesRN/rnview;
@@ -367,6 +412,15 @@
 				44BE0C8B1DDE024500A75144 /* libSQLite.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		44D5282E1DFF197A003BBBF1 /* UMessage_Sdk_1.4.0 */ = {
+			isa = PBXGroup;
+			children = (
+				44D5282F1DFF197A003BBBF1 /* libUMessage_Sdk_1.4.0.a */,
+				44D528301DFF197A003BBBF1 /* UMessage.h */,
+			);
+			path = UMessage_Sdk_1.4.0;
 			sourceTree = "<group>";
 		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
@@ -408,6 +462,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				44D5282E1DFF197A003BBBF1 /* UMessage_Sdk_1.4.0 */,
 				13B07FAE1A68108700A75B9A /* BeerNotesRN */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* BeerNotesRNTests */,
@@ -495,7 +550,12 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = ZERU4NU5ED;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -706,6 +766,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				44F8A4E01DFB1DCC00D26EA5 /* yw_1222.jpg in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -788,10 +849,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				445E2D5B1DD81B1900A5A326 /* BNMapVCManager.m in Sources */,
-				445E2D5A1DD81B1900A5A326 /* BNMapVC.m in Sources */,
+				44C152E31DFAF98A008244D1 /* FeedbcakView.m in Sources */,
+				44C152CB1DFAF944008244D1 /* FeedbcakVCManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				445E2D5C1DD81B1900A5A326 /* BNMapView.m in Sources */,
+				44F8A5201DFCF96700D26EA5 /* AppConfig.m in Sources */,
+				44C152E01DFAF976008244D1 /* FeedbcakVC.m in Sources */,
+				44F8A4EE1DFBE50200D26EA5 /* AppManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,8 +925,9 @@
 			baseConfigurationReference = 2ED7D2F66A12A7808DFCCD0A /* Pods-BeerNotesRN.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = BeerNotesRN/BeerNotesRN.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: bingbing shen (U44WQLHPWN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: bingbing shen (U44WQLHPWN)";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = ZERU4NU5ED;
@@ -876,6 +940,12 @@
 				INFOPLIST_FILE = BeerNotesRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMessage_Sdk_All/UMessage_Sdk_1.4.0",
+					"$(PROJECT_DIR)/UMessage_Sdk_All/UMessage_Sdk_Demo/UMessage_Sdk_Demo/UMessage_Sdk_1.4.0",
+					"$(PROJECT_DIR)/UMessage_Sdk_1.4.0",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -883,6 +953,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbs.beernotes;
 				PRODUCT_NAME = BeerNotesRN;
+				PROVISIONING_PROFILE = "16b1e628-3399-4a60-9878-88573f6b0a32";
+				PROVISIONING_PROFILE_SPECIFIER = beernotes_pp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -892,6 +964,7 @@
 			baseConfigurationReference = 639E4ABEB06B4C3CE80A09B7 /* Pods-BeerNotesRN.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BeerNotesRN/BeerNotesRN.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -905,6 +978,12 @@
 				INFOPLIST_FILE = BeerNotesRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMessage_Sdk_All/UMessage_Sdk_1.4.0",
+					"$(PROJECT_DIR)/UMessage_Sdk_All/UMessage_Sdk_Demo/UMessage_Sdk_Demo/UMessage_Sdk_1.4.0",
+					"$(PROJECT_DIR)/UMessage_Sdk_1.4.0",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

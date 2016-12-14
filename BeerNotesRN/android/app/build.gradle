@@ -135,8 +135,16 @@ dependencies {
     compile 'com.facebook.react:react-native:+'
     // From node_modules
     compile project(':react-native-sqlite-storage')
-    compile files('libs/Android_Map3D_SDK_V4.1.2_20161104.jar')
-//    compile 'com.idescout.sql:sqlscout-server:2.0'
+    //    compile 'com.idescout.sql:sqlscout-server:2.0'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
+//    compile 'com.android.support:support-v4:24.2.0'
+    compile project(':PushSDK')
+    //阿里百川
+    compile(name:'alisdk-feedback-2.3.0', ext:'aar')
+    compile(name:'securityguardaar3-5.1.81', ext:'aar')
+    compile files('libs/app-monitor-sdk-2.5.1.1_for_bc_proguard.jar')
+    compile files('libs/utdid4all-1.1.5.3_proguard.jar')
 }
 
 // Run this once to be able to run the application with BUCK

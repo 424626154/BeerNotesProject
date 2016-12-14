@@ -65,7 +65,7 @@ export default class AddNotesVC extends React.Component {
     }
   }
 
-  _addFormuls(){    
+  _addFormuls(){
     if (this.state.infname == 0) {
       alert('请输入配方名称')
       return;
@@ -255,6 +255,7 @@ export default class AddNotesVC extends React.Component {
             this._onChangeMalt(text);
             }}
            value={vc.state.inmalt}
+           underlineColorAndroid="transparent"
          />
       </View>
     )
@@ -273,6 +274,7 @@ export default class AddNotesVC extends React.Component {
             this._onChangeHops(text);
             }}
            value={vc.state.inhops}
+           underlineColorAndroid="transparent"
          />
       </View>
     )
@@ -291,6 +293,7 @@ export default class AddNotesVC extends React.Component {
             this._onChangeYeast(text);
             }}
            value={vc.state.inyeast}
+           underlineColorAndroid="transparent"
          />
       </View>
     )
@@ -309,6 +312,7 @@ export default class AddNotesVC extends React.Component {
             this._onChangeWater(text);
             }}
            value={vc.state.inwater}
+           underlineColorAndroid="transparent"
          />
       </View>
     )

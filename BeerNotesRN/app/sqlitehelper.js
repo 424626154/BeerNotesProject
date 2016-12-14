@@ -13,9 +13,9 @@ var db;
 var Id = 'id'
 var FormulaTable = 'formula';
 var FName = 'fname';
-var Malt = 'malt'
-var Hops = 'hops';
-var Yeast = 'yeast';
+var Malts = 'malts'
+var Hopss = 'hopss';
+var Yeasts = 'yeasts';
 var Water = 'water';
 var FType = 'type';//1 配方 2笔记
 
@@ -62,9 +62,9 @@ export default class SQLiteHelper {
         var create_formula_sql = 'CREATE TABLE IF NOT EXISTS '+FormulaTable+' ('
         +Id+' VARCHAR(256) PRIMARY KEY NOT NULL, '
         +FName+' VARCHAR(512) , '
-        +Malt+' INTEGER , '
-        +Hops+' INTEGER , '
-        +Yeast+' INTEGER , '
+        +Malts+' VARCHAR(1024) , '
+        +Hopss+' INTEGER , '
+        +Yeasts+' INTEGER , '
         +Water+' INTEGER , '
         +FType+' INTEGER )';
         db.transaction(function(tx) {
@@ -105,14 +105,14 @@ export default class SQLiteHelper {
   * fname 配方名称  malt 麦芽 hops 酒花 yeast 酵母 water 水
   *
   **/
-  insertFormulaDB(fname,malt,hops,yeast,water,type,callback){
-    console.log('---notes sql---  insert foemula fname = '+fname+' malt = '+malt
-    +' hops = '+hops+' yeast = '+yeast+' water = '+water
+  insertFormulaDB(fname,malts,hopss,yeasts,water,type,callback){
+    console.log('---notes sql---  insert foemula fname = '+fname+' malts = '+malts
+    +' hopss = '+hopss+' yeasts = '+yeasts+' water = '+water
     +' type = '+type+'callback ='+typeof callback);
     var id =uuid.v4();
-    var InsertFromula =  'INSERT INTO '+FormulaTable+'('+Id+', '+FName+', '+Malt+', '+Hops+', '+Yeast+', '+Water+', '+FType+') VALUES (?,?,?,?,?,?,?)'
+    var InsertFromula =  'INSERT INTO '+FormulaTable+'('+Id+', '+FName+', '+Malts+', '+Hopss+', '+Yeasts+', '+Water+', '+FType+') VALUES (?,?,?,?,?,?,?)'
     db.transaction(function(tx) {
-      tx.executeSql(InsertFromula, [id,fname,malt,hops,yeast,water,type]);
+      tx.executeSql(InsertFromula, [id,fname,malts,hopss,yeasts,water,type]);
     }, function(error) {
       console.log('---notes sql---  insertFormulaDB Error: ' + error.message);
       if (typeof callback === "function") {
@@ -185,11 +185,11 @@ export default class SQLiteHelper {
     });
   }
   //更新配方
-  updateFormulaDB(id,fname,malt,hops,yeast,water,callback){
+  updateFormulaDB(id,fname,malts,hopss,yeasts,water,callback){
     db.transaction(function(tx) {
-      var update = 'UPDATE '+FormulaTable+' set '+FName+' = ? , '+Malt+' = ? , '+Hops+' = ? , '+Yeast+' = ? , '+Water+' = ? WHERE ' +Id+' = ?'
-      console.log(update,[fname,malt,hops,yeast,water,id])
-      tx.executeSql(update, [fname,malt,hops,yeast,water,id], function(rs) {
+      var update = 'UPDATE '+FormulaTable+' set '+FName+' = ? , '+Malts+' = ? , '+Hopss+' = ? , '+Yeasts+' = ? , '+Water+' = ? WHERE ' +Id+' = ?'
+      console.log(update,[fname,malts,hopss,yeasts,water,id])
+      tx.executeSql(update, [fname,malts,hopss,yeasts,water,id], function(rs) {
         console.log('---notes sql---  updateFormulaDB Success')
         if (typeof callback === "function") {
           callback(0)
@@ -212,7 +212,7 @@ export default class SQLiteHelper {
 
   /**
   *插入笔记
-  * fname 配方名称  malt 麦芽 hops 酒花 yeast 酵母 water 水
+  * fname 配方名称  malts 麦芽 hopss 酒花 yeasts 酵母 water 水
   *
   **/
   insertNotesDB(fid,nfid,callback){

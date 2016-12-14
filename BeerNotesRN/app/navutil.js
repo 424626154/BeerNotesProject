@@ -4,13 +4,15 @@ import React, {
 } from 'react';
 import MainVC from "./mainvc"
 import NotesVC from "./notesvc"
-import FormulaVC from "./formulavc"
-import AddFormulaVC from "./addformulavc"
-import UpFormulaVC from "./upformula"
+import FormulaVC from "./formula/formulavc"
+import AddFormulaVC from "./formula/addformulavc"
+import UpFormulaVC from "./formula/upformula"
 import AddNotesVC from './addnotesvc'
 import SelectFormulaVC from './selectformulavc'
 import HomeVC from './homevc';
-import AlcoholDegreeVC from './alcoholdegreevc'
+import AlcoholDegreeVC from './calculator/alcoholdegreevc';
+import MoreVC from './more/morevc'
+import BNFeedbackVC from './more/bnfeedbackvc'
 
 export default class NavUitl extends React.Component {
   static renderPage(route, nav) {
@@ -41,6 +43,12 @@ export default class NavUitl extends React.Component {
         break;
       case 'alcoholdegreevc':
         return(<AlcoholDegreeVC nav={nav}/>);
+        break;
+      case 'morevc':
+        return(<MoreVC nav={nav}/>);
+        break;
+      case 'bnfeedbcakvc':
+        return(<BNFeedbackVC nav={nav}/>);
         break;
 		}
 	}

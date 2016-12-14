@@ -11,15 +11,11 @@ import {
 
 import TabNavigator from 'react-native-tab-navigator'
 import NotesVC from './notesvc'
-import MapVC from './mapvc'
 import MeVC from './mevc'
 
 const NOTES = 'notes';
 const NOTES_NORMAL = require('../resource/notes_normal.png');
 const NOTES_FOCUS = require('../resource/notes_focus.png');
-const MAP = 'map';
-const MAP_NORMAL = require('../resource/map_normal.png');
-const MAP_FOCUS = require('../resource/map_focus.png');
 const ME = 'me';
 const ME_NORMAL = require('../resource/me_normal.png');
 const ME_FOCUS = require('../resource/me_focus.png');
@@ -47,7 +43,6 @@ export default class MainVC extends Component{
       <View style={{flex: 1}}>
           <TabNavigator hidesTabTouch={true} tabBarStyle={styles.tab}>
           {this._renderTabItem(NOTES_NORMAL, NOTES_FOCUS, NOTES, <NotesVC nav={this.props.nav}/>)}
-          {this._renderTabItem(MAP_NORMAL, MAP_FOCUS, MAP, <MapVC nav={this.props.nav}/>)}
           {this._renderTabItem(ME_NORMAL, ME_FOCUS, ME, <MeVC nav={this.props.nav}/>)}
           </TabNavigator>
       </View >

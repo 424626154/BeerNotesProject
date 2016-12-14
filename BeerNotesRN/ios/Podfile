@@ -4,4 +4,10 @@
   #pod 'AMap2DMap' #2D地图SDK (2D和3D不能同时使⽤用)
   pod 'AMapSearch' #搜索服务SDK
   pod 'IQKeyboardManager'  
+  pod 'RMStore', '~> 0.7'  
+  pod 'UMengAnalytics'  
+  source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecs.git'
+  source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecsMirror.git'
+  pod 'YWFeedbackFMWK', '~> 2.0.3.1'  
+  pod 'TWMessageBarManager'  
   end
