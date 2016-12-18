@@ -27,8 +27,8 @@
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
 
-        <UMENG_APPKEYmeta-data android:name="com.amap.api.v2.apikey" android:value="e84343df0127b5cd504674475c0f6b40">
-        </UMENG_APPKEYmeta-data>
+        <!--<UMENG_APPKEYmeta-data android:name="com.amap.api.v2.apikey" android:value="5846ec8eae1bf8125b000d7d">-->
+        <!--</UMENG_APPKEYmeta-data>-->
         <!--友盟-->
         <meta-data
             android:value="5846ec8eae1bf8125b000d7d"

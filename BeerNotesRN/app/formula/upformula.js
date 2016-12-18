@@ -22,6 +22,7 @@ var sqlitehelper;
 var maltsds;
 var hopssds;
 var yeastsds;
+var accessoriessds;
 export default class UpFormulaVC extends React.Component {
   _goBack(){
     DeviceEventEmitter.emit('refesh');
@@ -117,6 +118,29 @@ export default class UpFormulaVC extends React.Component {
     }
     var yeast_str = JSON.stringify(this.state.yeasts);
     console.log(hops_str);
+    if (this.state.accessoriess.length > 0 ){
+      for(var i = 0 ; i < this.state.accessoriess.length ; i ++){
+        var accessories = this.state.accessoriess[i];
+        if(accessories.name == ''){
+          alert('请输入辅料信息')
+          return;
+        }
+        accessories.weight = +accessories.weight
+        if(Number.isFinite(accessories.weight) == false ){
+          alert('请输入辅料信息')
+          return;
+        }
+        if(accessories.weight == 0){
+          alert('请输入辅料信息')
+          return;
+        }
+      }
+    }else{
+        alert('请输入辅料信息')
+        return;
+    }
+    var accessories_str = JSON.stringify(this.state.accessoriess);
+    console.log(accessories_str);
     this.state.water = +this.state.water;
     console.log(Number.isFinite(this.state.water),this.state.water);
     if(Number.isFinite(this.state.water) == false){
@@ -138,16 +162,20 @@ export default class UpFormulaVC extends React.Component {
       var malts = JSON.parse(item.malts);
       var hopss = JSON.parse(item.hopss);
       var yeasts = JSON.parse(item.yeasts);
+      var accessoriess = JSON.parse(item.accessoriess);
+      console.log('accessoriess:',accessoriess)
       this.setState({
         fname:item.fname,
         malts:malts,
         hopss:hopss,
         yeasts:yeasts,
+        accessoriess:accessoriess,
         water:item.water,
         uprowid:item.id,
         maltsData: maltsds.cloneWithRows(malts),
         hopssData: hopssds.cloneWithRows(hopss),
         yeastsData: yeastsds.cloneWithRows(yeasts),
+        accessoriessData: accessoriessds.cloneWithRows(accessoriess),
       })
     }else{
       alert(errocode);
@@ -165,7 +193,7 @@ export default class UpFormulaVC extends React.Component {
       maltsData: maltsds.cloneWithRows(malts)
     })
   }
-  _subtractMalt(){
+  _delMalt(){
     var malts = this.state.malts;
     malts.pop();
     this.setState({
@@ -202,7 +230,7 @@ export default class UpFormulaVC extends React.Component {
       hopssData: hopssds.cloneWithRows(hopss)
     })
   }
-  _subtractHops(){
+  _delHops(){
     var hopss = this.state.hopss;
     hopss.pop();
     this.setState({
@@ -239,7 +267,7 @@ export default class UpFormulaVC extends React.Component {
       yeastsData: yeastsds.cloneWithRows(yeasts)
     })
   }
-  _subtractYeast(){
+  _delYeast(){
     var yeasts = this.state.yeasts;
     yeasts.pop();
     this.setState({
@@ -267,6 +295,45 @@ export default class UpFormulaVC extends React.Component {
     this.setState({
       yeasts:yeasts,
       yeastsData: yeastsds.cloneWithRows(yeasts)
+    })
+  }
+  _addAccessories(){
+    console.log('_addAccessories')
+    var accessoriess = this.state.accessoriess;
+    accessoriess.push({name:'',weight:0});
+    console.log(accessoriess.length);
+    this.setState({
+      accessoriessData: accessoriessds.cloneWithRows(accessoriess)
+    })
+  }
+  _delAccessories(){
+    var accessoriess = this.state.accessoriess;
+    accessoriess.pop();
+    this.setState({
+      accessoriessData: accessoriessds.cloneWithRows(accessoriess)
+    })
+  }
+  _chengAccessoriesName(rowID,text){
+    console.log('_chengAccessoriesName',rowID,text);
+    var accessoriess = this.state.accessoriess;
+    accessoriess[rowID].name = text;
+    this.setState({
+      accessoriess:accessoriess,
+      accessoriessData: accessoriessds.cloneWithRows(accessoriess)
+    })
+  }
+  _chengAccessoriesWeight(rowID,text){
+    console.log('_chengAccessoriesWeight',rowID,text);
+    text = +text;
+    if(Number.isFinite(text) == false){
+      console('请输入正确的辅料重量格式')
+      return;
+    }
+    var accessoriess = this.state.accessoriess;
+    accessoriess[rowID].weight = text;
+    this.setState({
+      accessoriess:accessoriess,
+      accessoriessData: accessoriessds.cloneWithRows(accessoriess)
     })
   }
   //加载名称
@@ -305,7 +372,7 @@ export default class UpFormulaVC extends React.Component {
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
-        <TouchableOpacity onPress={()=>this._subtractMalt()}>
+        <TouchableOpacity onPress={()=>this._delMalt()}>
         <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
         </TouchableOpacity>
         </View>
@@ -361,7 +428,7 @@ export default class UpFormulaVC extends React.Component {
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
-        <TouchableOpacity onPress={()=>this._subtractHops()}>
+        <TouchableOpacity onPress={()=>this._delHops()}>
         <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
         </TouchableOpacity>
         </View>
@@ -418,7 +485,7 @@ export default class UpFormulaVC extends React.Component {
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
-        <TouchableOpacity onPress={()=>this._subtractYeast()}>
+        <TouchableOpacity onPress={()=>this._delYeast()}>
         <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
         </TouchableOpacity>
         </View>
@@ -454,6 +521,62 @@ export default class UpFormulaVC extends React.Component {
           </View>
     )
   }
+  //加载辅料
+  _renderAccessories(){
+    return(
+       <View>
+        <View style={styles.row}>
+          <Image style={styles.thumb} source={require('../../resource/liao_normal.png')}/>
+        </View>
+        <ListView
+          enableEmptySections={true}
+          dataSource={this.state.accessoriessData}
+          renderRow={this._renderAccessoriesRow.bind(this)}
+        />
+        {/* 功能栏 */}
+        <View style={styles.row}>
+        {/* 添加 */}
+        <TouchableOpacity onPress={()=>this._addYeast()}>
+        <Image style={styles.thumb} source={require('../../resource/add_normal.png')}/>
+        </TouchableOpacity>
+        <View style={styles.row_iv}></View>
+        {/* 删除 */}
+        <TouchableOpacity onPress={()=>this._delYeast()}>
+        <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
+        </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }
+  //加载辅料列表
+  _renderAccessoriesRow(rowData, sectionID, rowID){
+    return(
+        <View>
+            <View style={styles.row}>
+              <Text style={styles.text1}>{'名称'}</Text>
+              <TextInput
+                 style={styles.ti}
+                 onChangeText={(text) =>{
+                   this._chengAccessoriesName(rowID,text);
+                 }}
+                 value={rowData.name}
+               />
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.text1}>{'重量'}</Text>
+              <TextInput
+                 style={styles.ti}
+                 onChangeText={(text) => {
+                   this._chengAccessoriesWeight(rowID,text);
+                 }}
+                 value={rowData.weight+''}
+                 underlineColorAndroid="transparent"
+               />
+               <Text style={styles.text2}>{'克'}</Text>
+            </View>
+          </View>
+    )
+  }
   //加载水
   _renderWater(){
     return(
@@ -479,20 +602,24 @@ export default class UpFormulaVC extends React.Component {
     maltsds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     hopssds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     yeastsds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    accessoriessds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     var malts = [];
     var hopss = [];
     var yeasts = [];
+    var accessoriess  = [];
     this.state = {
       fname:'',
       malts:malts,
       hopss:hopss,
       yeasts:yeasts,
+      accessoriess:accessoriess,
       water:'',
       uprowid:'',
       visible: false,
       maltsData:maltsds.cloneWithRows(malts),
       hopssData:hopssds.cloneWithRows(hopss),
       yeastsData:yeastsds.cloneWithRows(yeasts),
+      accessoriessData:accessoriessds.cloneWithRows(accessoriess),
     }
   }
   componentDidMount() {
@@ -536,6 +663,7 @@ export default class UpFormulaVC extends React.Component {
            {this._renderMalt()}
            {this._renderHops()}
            {this._renderYeast()}
+           {this._renderAccessories()}
            {this._renderWater()}
          </ScrollView>
          </View>

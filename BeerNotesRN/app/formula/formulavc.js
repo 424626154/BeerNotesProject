@@ -21,6 +21,7 @@ var ds;
 var maltsds;
 var hopssds;
 var yeastsds;
+var accessoriessds;
 let sqlitehelper;
 export default class FormulaVC extends React.Component {
   _goBack(){
@@ -67,7 +68,7 @@ export default class FormulaVC extends React.Component {
       visible: true
     })
     console.log('_query',this.state.visible);
-    sqlitehelper.queryAllFormulaDB(1,this._queryCllback);
+    sqlitehelper.queryAllFormulaDB(this._queryCllback);
   }
   _deleteCllback(errocode,rowid){
     this.setState({
@@ -121,6 +122,8 @@ export default class FormulaVC extends React.Component {
                {this._renderHops(rowData.hopss)}
               {/* 酵母 */}
               {this._renderYeast(rowData.yeasts)}
+              {/* 其他辅料 */}
+              {this._renderAccessories(rowData.accessoriess)}
               {/* 水 */}
               <View style={styles.row}>
               <Image style={styles.thumb} source={require('../../resource/water_normal.png')}/>
@@ -259,6 +262,44 @@ export default class FormulaVC extends React.Component {
           </View>
     )
   }
+  //加载酵母
+  _renderAccessories(accessoriess){
+    var accessoriessData = accessoriessds.cloneWithRows(JSON.parse(accessoriess))
+    return(
+       <View>
+        <View style={styles.row}>
+          <Image style={styles.thumb} source={require('../../resource/liao_normal.png')}/>
+        </View>
+        <ListView
+          enableEmptySections={true}
+          dataSource={accessoriessData}
+          renderRow={this._renderAccessoriesRow.bind(this)}
+        />
+      </View>
+    )
+  }
+  _renderAccessoriesRow(rowData, sectionID, rowID){
+    return(
+        <View>
+            <View style={styles.row}>
+              <Text style={styles.text1}>{'名称'}</Text>
+              <Text
+                 style={styles.text}
+               >
+               {rowData.name}
+               </Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.text1}>{'重量'}</Text>
+              <Text
+                 style={styles.text}>
+                 {rowData.weight+''}
+                 </Text>
+                  <Text style={styles.text2}>{'克'}</Text>
+            </View>
+          </View>
+    )
+  }
   constructor(props) {
     super(props);
     // vc = this;
@@ -270,6 +311,7 @@ export default class FormulaVC extends React.Component {
     maltsds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     hopssds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     yeastsds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    accessoriessds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(fData),
       visible: true

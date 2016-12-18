@@ -49,8 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
     instance = this;
     initFeedback();
     initPush();
-      Log.i("deviceInfo",getDeviceInfo(this));
-      MobclickAgent.onEvent(this,"Forward");
+//      UmLog.i("deviceInfo",getDeviceInfo(this));
   }
 
 
@@ -64,12 +63,12 @@ public class MainApplication extends Application implements ReactApplication {
     mPushAgent.register(new IUmengRegisterCallback() {
       @Override
       public void onSuccess(String deviceToken) {
-        UmLog.i(TAG, "device token: " + deviceToken);
+        Log.i(TAG, "device token: " + deviceToken);
       }
 
       @Override
       public void onFailure(String s, String s1) {
-        UmLog.i(TAG, "register failed: " + s + " " +s1);
+        Log.i(TAG, "register failed: " + s + " " +s1);
       }
     });
   }
