@@ -14,15 +14,25 @@ import {
   ScrollView,
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
-import SQLiteHelper from '../sqlitehelper';
 import Spinner from 'react-native-loading-spinner-overlay';
+import SqlHelper from '../db/sqlhelper';
 
-// var vc;
-let sqlitehelper;
 var maltsds;
 var hopssds;
 var yeastsds;
 var accessoriessds;
+
+var fname_img = require('../../resource/fname_normal.png');
+var malt_img = require('../../resource/malt_normal.png');
+var add_img = require('../../resource/add_normal.png');
+var subtract_img = require('../../resource/subtract_normal.png');
+var hops_img = require('../../resource/hops_normal.png');
+var yeast_img = require('../../resource/yeast_normal.png');
+var liao_img = require('../../resource/liao_normal.png');
+var water_img = require('../../resource/water_normal.png');
+
+var sqlHelper;
+
 export default class AddFormulaVC extends React.Component {
   _goBack(){
     DeviceEventEmitter.emit('refesh');
@@ -138,8 +148,7 @@ export default class AddFormulaVC extends React.Component {
         }
       }
     }else{
-        alert('请输入辅料信息')
-        return;
+
     }
     var accessories_str = JSON.stringify(this.state.accessoriess);
     console.log(accessories_str);
@@ -153,7 +162,7 @@ export default class AddFormulaVC extends React.Component {
       alert('请输入水重量')
       return;
     }
-    sqlitehelper.insertFormulaDB(this.state.fname,malts_str,hops_str,yeast_str,this.state.water,accessories_str,this._saveCallback);
+    sqlHelper.insertFormulaDB(this.state.fname,malts_str,hops_str,yeast_str,this.state.water,accessories_str,this._saveCallback);
   }
   _addMalt(){
     console.log('_addMalt')
@@ -315,7 +324,7 @@ export default class AddFormulaVC extends React.Component {
     return(
       <View>
        <View style={styles.row}>
-         <Image style={styles.thumb} source={require('../../resource/fname_normal.png')}/>
+         <Image style={styles.thumb} source={fname_img}/>
          <TextInput
             style={styles.ti}
             onChangeText={(text) => this.setState({fname:text})}
@@ -332,7 +341,7 @@ export default class AddFormulaVC extends React.Component {
     return(
        <View>
         <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/malt_normal.png')}/>
+          <Image style={styles.thumb} source={malt_img}/>
         </View>
         <ListView
           enableEmptySections={true}
@@ -343,12 +352,12 @@ export default class AddFormulaVC extends React.Component {
         <View style={styles.row}>
         {/* 添加 */}
         <TouchableOpacity onPress={()=>this._addMalt()}>
-        <Image style={styles.thumb} source={require('../../resource/add_normal.png')}/>
+        <Image style={styles.thumb} source={add_img}/>
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
         <TouchableOpacity onPress={()=>this._delMalt()}>
-        <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
+        <Image style={styles.thumb} source={subtract_img}/>
         </TouchableOpacity>
         </View>
       </View>
@@ -391,7 +400,7 @@ export default class AddFormulaVC extends React.Component {
     return(
        <View>
         <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/hops_normal.png')}/>
+          <Image style={styles.thumb} source={hops_img}/>
         </View>
         <ListView
           enableEmptySections={true}
@@ -402,12 +411,12 @@ export default class AddFormulaVC extends React.Component {
         <View style={styles.row}>
         {/* 添加 */}
         <TouchableOpacity onPress={()=>this._addHops()}>
-        <Image style={styles.thumb} source={require('../../resource/add_normal.png')}/>
+        <Image style={styles.thumb} source={add_img}/>
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
         <TouchableOpacity onPress={()=>this._delHops()}>
-        <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
+        <Image style={styles.thumb} source={subtract_img}/>
         </TouchableOpacity>
         </View>
       </View>
@@ -450,7 +459,7 @@ export default class AddFormulaVC extends React.Component {
     return(
        <View>
         <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/yeast_normal.png')}/>
+          <Image style={styles.thumb} source={yeast_img}/>
         </View>
         <ListView
           enableEmptySections={true}
@@ -461,12 +470,12 @@ export default class AddFormulaVC extends React.Component {
         <View style={styles.row}>
         {/* 添加 */}
         <TouchableOpacity onPress={()=>this._addYeast()}>
-        <Image style={styles.thumb} source={require('../../resource/add_normal.png')}/>
+        <Image style={styles.thumb} source={add_img}/>
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
         <TouchableOpacity onPress={()=>this._delYeast()}>
-        <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
+        <Image style={styles.thumb} source={subtract_img}/>
         </TouchableOpacity>
         </View>
       </View>
@@ -509,7 +518,7 @@ export default class AddFormulaVC extends React.Component {
     return(
        <View>
         <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/liao_normal.png')}/>
+          <Image style={styles.thumb} source={liao_img}/>
         </View>
         <ListView
           enableEmptySections={true}
@@ -520,12 +529,12 @@ export default class AddFormulaVC extends React.Component {
         <View style={styles.row}>
         {/* 添加 */}
         <TouchableOpacity onPress={()=>this._addAccessoriesRow()}>
-        <Image style={styles.thumb} source={require('../../resource/add_normal.png')}/>
+        <Image style={styles.thumb} source={add_img}/>
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
         <TouchableOpacity onPress={()=>this._delAccessories()}>
-        <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
+        <Image style={styles.thumb} source={subtract_img}/>
         </TouchableOpacity>
         </View>
       </View>
@@ -568,7 +577,7 @@ export default class AddFormulaVC extends React.Component {
     return(
       <View>
        <View style={styles.row}>
-         <Image style={styles.thumb} source={require('../../resource/water_normal.png')}/>
+         <Image style={styles.thumb} source={water_img}/>
          <TextInput
             style={styles.ti}
             onChangeText={(text) => this.setState({water:text})}
@@ -596,7 +605,7 @@ export default class AddFormulaVC extends React.Component {
     var malts = [{name:'',weight:''}];
     var hopss = [{name:'',weight:''}];
     var yeasts = [{name:'',weight:''}];
-    var accessoriess = [{name:'',weight:''}];
+    var accessoriess = [];
     this.state = {
       fname:'',
       malts:malts,
@@ -612,11 +621,10 @@ export default class AddFormulaVC extends React.Component {
     }
   }
   componentDidMount() {
-      sqlitehelper = new SQLiteHelper();
-      // sqlitehelper.openDB();
+    sqlHelper = new SqlHelper();
   }
   componentWillUnmount(){
-      // sqlitehelper.closeDB();
+
   }
   render(){
     const leftButtonConfig = {

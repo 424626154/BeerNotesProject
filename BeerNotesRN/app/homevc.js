@@ -10,8 +10,8 @@ import {
   Image,
   Text
 } from 'react-native';
+
 import NavigationBar from 'react-native-navbar';
-import SQLiteHelper from './sqlitehelper';
 
 var listData= [
   {
@@ -28,21 +28,27 @@ var listData= [
   }
 ];
 var ds = null;
-let sqlitehelper;
+
 export default class HomeVC extends React.Component {
-    _goBack(){
-      this.props.nav.pop();
-    }
+    // 进入配方
     _goFormula(){
       this.props.nav.push({
         id:'formulavc',
         name:'formulavc'
       })
     }
+    // 进入关于
     _goAlcoholDegreeVC(){
       this.props.nav.push({
         id:'alcoholdegreevc',
         name:'alcoholdegreevc'
+      })
+    }
+    //进入更多
+    _goMorevc(){
+      this.props.nav.push({
+        id:'morevc',
+        name:'morevc'
       })
     }
     _pressRow(rowID){
@@ -51,10 +57,7 @@ export default class HomeVC extends React.Component {
       }else if(rowID == 1){
         this._goAlcoholDegreeVC();
       }else if(rowID == 2){
-        this.props.nav.push({
-          id:'morevc',
-          name:'morevc'
-        })
+        this._goMorevc();
       }
     }
     _renderRow(rowData, sectionID, rowID){
@@ -81,11 +84,10 @@ export default class HomeVC extends React.Component {
       };
     }
     componentDidMount() {
-      sqlitehelper = new SQLiteHelper();
-      sqlitehelper.openDB();
+
     }
     componentWillUnmount(){
-      sqlitehelper.closeDB();
+
     }
     render(){
       var titleConfig = {

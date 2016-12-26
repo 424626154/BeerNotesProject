@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bbs.beernotes"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0.1">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -25,40 +25,24 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-
-
-        <!--<UMENG_APPKEYmeta-data android:name="com.amap.api.v2.apikey" android:value="5846ec8eae1bf8125b000d7d">-->
-        <!--</UMENG_APPKEYmeta-data>-->
-        <!--友盟-->
         <meta-data
-            android:value="5846ec8eae1bf8125b000d7d"
-            android:name="UMENG_APPKEY"/>
-        <meta-data
-            android:value="h_home"
-            android:name="UMENG_CHANNEL"/>
+            android:name="UMENG_APPKEY"
+            android:value="5846ec8eae1bf8125b000d7d">
+        </meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="def7181c9f212ce8ae6286f6e9655715">
         </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="h_home" >
+        </meta-data>
     </application>
-
-    //地图包、搜索包需要的基础权限
-
-    <!--允许程序打开网络套接字-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--允许程序设置内置sd卡的写权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--允许程序获取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--允许程序访问WiFi网络信息-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--允许程序读写手机状态和身份-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
 </manifest>

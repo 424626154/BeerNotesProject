@@ -3,28 +3,25 @@ package com.bbs.beernotes;
 import android.Manifest;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
-//import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.bbs.beernotes.rnview.AppConfig;
 import com.bbs.beernotes.rnview.AppReactPackage;
 import com.facebook.react.ReactApplication;
+import io.realm.react.RealmReactPackage;
+import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.soloader.SoLoader;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
-import com.umeng.message.common.UmLog;
-
-
-import org.pgsqlite.SQLitePluginPackage;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -34,27 +31,51 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-//import com.idescout.sql.SqlScoutServer;
+import static com.bbs.beernotes.rnview.AppConfig.Bugly_KEY;
+import static com.bbs.beernotes.rnview.AppConfig.Umeng_appkey;
+import static com.bbs.beernotes.rnview.AppConfig.Umeng_channelId;
+import static com.bbs.beernotes.rnview.AppConfig.isCrashEnable;
 
 public class MainApplication extends Application implements ReactApplication {
-  private static MainApplication instance;
-  public static MainApplication getInstance() {
-    return instance;
-  }
-    private static final String TAG = MainApplication.class.getName();
+  private static final String TAG = MainApplication.class.getName();
+  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
+    protected boolean getUseDeveloperSupport() {
+      return BuildConfig.DEBUG;
+    }
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(),
+            new RealmReactPackage(),
+              new AppReactPackage()
+      );
+    }
+  };
+
+  @Override
+  public ReactNativeHost getReactNativeHost() {
+    return mReactNativeHost;
+  }
+
+  @Override
   public void onCreate() {
     super.onCreate();
-//    SqlScoutServer.create(this, getPackageName());
-    instance = this;
-    initFeedback();
+    SoLoader.init(this, /* native exopackage */ false);
+    initUmeng();
     initPush();
-//      UmLog.i("deviceInfo",getDeviceInfo(this));
+    initBugly();
+    initFeedback();
   }
 
+  public void initUmeng() {
+    MobclickAgent.setDebugMode( true );
+    Log.i(TAG,"device info: "+getDeviceInfo(this));
+  }
 
   public void initFeedback(){
-    FeedbackAPI.init(MainApplication.getInstance(), AppConfig.ALBC_FKEY);
+    FeedbackAPI.init(this, AppConfig.ALBC_FKEY);
   }
   public void initPush(){
     PushAgent mPushAgent = PushAgent.getInstance(this);
@@ -72,26 +93,11 @@ public class MainApplication extends Application implements ReactApplication {
       }
     });
   }
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    protected boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
 
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-              new AppReactPackage(),
-              new SQLitePluginPackage()
-      );
-    }
-  };
-
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-      return mReactNativeHost;
+  public void initBugly(){
+    CrashReport.initCrashReport(getApplicationContext(), Bugly_KEY, false);
   }
+
   public static boolean checkPermission(Context context, String permission) {
     boolean result = false;
     if (Build.VERSION.SDK_INT >= 23) {

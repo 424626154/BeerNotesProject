@@ -7,24 +7,20 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "~15.3.1",
-    "react-native": "0.37.0",
-    "react-native-device-uuid": "^1.2.0",
-    "react-native-loading-spinner-overlay": "^0.3.0",
+    "react": "15.4.1",
+    "react-native": "0.39.2",
+    "react-native-loading-spinner-overlay": "^0.4.1",
     "react-native-navbar": "^1.5.4",
-    "react-native-sqlite-storage": "^3.1.2",
-    "react-native-tab-navigator": "^0.3.3",
-    "react-native-textinput-effects": "^0.3.0",
-    "react-timer-mixin": "^0.13.3"
+    "react-native-uuid": "^1.4.9",
+    "realm": "^0.15.0"
   },
   "devDependencies": {
-    "babel-jest": "17.0.0",
-    "babel-preset-react-native": "1.9.0",
-    "jest": "17.0.0",
-    "jest-react-native": "17.0.0",
-    "react-test-renderer": "~15.3.1"
+    "babel-jest": "18.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "18.0.0",
+    "react-test-renderer": "15.4.1"
   },
   "jest": {
-    "preset": "jest-react-native"
+    "preset": "react-native"
   }
 }

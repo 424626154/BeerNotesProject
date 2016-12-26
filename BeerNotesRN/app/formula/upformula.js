@@ -14,15 +14,26 @@ import {
   ScrollView,
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
-import SQLiteHelper from '../sqlitehelper';
 import Spinner from 'react-native-loading-spinner-overlay';
 import TimerMixin from 'react-timer-mixin';
-// var vc;
-var sqlitehelper;
+import SqlHelper from '../db/sqlhelper';
+
 var maltsds;
 var hopssds;
 var yeastsds;
 var accessoriessds;
+
+var sqlHelper;
+
+var fname_img = require('../../resource/fname_normal.png');
+var malt_img = require('../../resource/malt_normal.png');
+var add_img = require('../../resource/add_normal.png');
+var subtract_img = require('../../resource/subtract_normal.png');
+var hops_img = require('../../resource/hops_normal.png');
+var yeast_img = require('../../resource/yeast_normal.png');
+var liao_img = require('../../resource/liao_normal.png');
+var water_img = require('../../resource/water_normal.png');
+
 export default class UpFormulaVC extends React.Component {
   _goBack(){
     DeviceEventEmitter.emit('refesh');
@@ -151,7 +162,7 @@ export default class UpFormulaVC extends React.Component {
       alert('请输入水重量')
       return;
     }
-    sqlitehelper.updateFormulaDB(this.state.uprowid,this.state.fname,malts_str,hops_str,yeast_str,this.state.water,this._updateCallback);
+    sqlHelper.updateFormulaDB(this.state.uprowid,this.state.fname,malts_str,hops_str,yeast_str,this.state.water,accessories_str,this._updateCallback);
   }
   _queryCallback(errocode,item){
     console.log(errocode,item.id)
@@ -171,7 +182,7 @@ export default class UpFormulaVC extends React.Component {
         yeasts:yeasts,
         accessoriess:accessoriess,
         water:item.water,
-        uprowid:item.id,
+        uprowid:item.fid,
         maltsData: maltsds.cloneWithRows(malts),
         hopssData: hopssds.cloneWithRows(hopss),
         yeastsData: yeastsds.cloneWithRows(yeasts),
@@ -182,7 +193,7 @@ export default class UpFormulaVC extends React.Component {
     }
   }
   _query(rowid){
-    sqlitehelper.queryOneFormulaDB(rowid,this._queryCallback);
+    sqlHelper.queryOneFormulaDB(rowid,this._queryCallback);
   }
   _addMalt(){
     console.log('_addMalt')
@@ -341,7 +352,7 @@ export default class UpFormulaVC extends React.Component {
     return(
       <View>
        <View style={styles.row}>
-         <Image style={styles.thumb} source={require('../../resource/fname_normal.png')}/>
+         <Image style={styles.thumb} source={fname_img}/>
          <TextInput
             style={styles.ti}
             onChangeText={(text) => this.setState({fname:text})}
@@ -357,7 +368,7 @@ export default class UpFormulaVC extends React.Component {
     return(
        <View>
         <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/malt_normal.png')}/>
+          <Image style={styles.thumb} source={malt_img}/>
         </View>
         <ListView
           enableEmptySections={true}
@@ -368,12 +379,12 @@ export default class UpFormulaVC extends React.Component {
         <View style={styles.row}>
         {/* 添加 */}
         <TouchableOpacity onPress={()=>this._addMalt()}>
-        <Image style={styles.thumb} source={require('../../resource/add_normal.png')}/>
+        <Image style={styles.thumb} source={add_img}/>
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
         <TouchableOpacity onPress={()=>this._delMalt()}>
-        <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
+        <Image style={styles.thumb} source={subtract_img}/>
         </TouchableOpacity>
         </View>
       </View>
@@ -413,7 +424,7 @@ export default class UpFormulaVC extends React.Component {
     return(
        <View>
         <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/hops_normal.png')}/>
+          <Image style={styles.thumb} source={hops_img}/>
         </View>
         <ListView
           enableEmptySections={true}
@@ -424,12 +435,12 @@ export default class UpFormulaVC extends React.Component {
         <View style={styles.row}>
         {/* 添加 */}
         <TouchableOpacity onPress={()=>this._addHops()}>
-        <Image style={styles.thumb} source={require('../../resource/add_normal.png')}/>
+        <Image style={styles.thumb} source={add_img}/>
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
         <TouchableOpacity onPress={()=>this._delHops()}>
-        <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
+        <Image style={styles.thumb} source={subtract_img}/>
         </TouchableOpacity>
         </View>
       </View>
@@ -470,7 +481,7 @@ export default class UpFormulaVC extends React.Component {
     return(
        <View>
         <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/yeast_normal.png')}/>
+          <Image style={styles.thumb} source={yeast_img}/>
         </View>
         <ListView
           enableEmptySections={true}
@@ -481,12 +492,12 @@ export default class UpFormulaVC extends React.Component {
         <View style={styles.row}>
         {/* 添加 */}
         <TouchableOpacity onPress={()=>this._addYeast()}>
-        <Image style={styles.thumb} source={require('../../resource/add_normal.png')}/>
+        <Image style={styles.thumb} source={add_img}/>
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
         <TouchableOpacity onPress={()=>this._delYeast()}>
-        <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
+        <Image style={styles.thumb} source={subtract_img}/>
         </TouchableOpacity>
         </View>
       </View>
@@ -526,7 +537,7 @@ export default class UpFormulaVC extends React.Component {
     return(
        <View>
         <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/liao_normal.png')}/>
+          <Image style={styles.thumb} source={liao_img}/>
         </View>
         <ListView
           enableEmptySections={true}
@@ -536,13 +547,13 @@ export default class UpFormulaVC extends React.Component {
         {/* 功能栏 */}
         <View style={styles.row}>
         {/* 添加 */}
-        <TouchableOpacity onPress={()=>this._addYeast()}>
-        <Image style={styles.thumb} source={require('../../resource/add_normal.png')}/>
+        <TouchableOpacity onPress={()=>this._addAccessories()}>
+        <Image style={styles.thumb} source={add_img}/>
         </TouchableOpacity>
         <View style={styles.row_iv}></View>
         {/* 删除 */}
-        <TouchableOpacity onPress={()=>this._delYeast()}>
-        <Image style={styles.thumb} source={require('../../resource/subtract_normal.png')}/>
+        <TouchableOpacity onPress={()=>this._delAccessories()}>
+        <Image style={styles.thumb} source={subtract_img}/>
         </TouchableOpacity>
         </View>
       </View>
@@ -582,7 +593,7 @@ export default class UpFormulaVC extends React.Component {
     return(
       <View>
        <View style={styles.row}>
-         <Image style={styles.thumb} source={require('../../resource/water_normal.png')}/>
+         <Image style={styles.thumb} source={water_img}/>
          <TextInput
             style={styles.ti}
             onChangeText={(text) => this.setState({water:text})}
@@ -623,8 +634,7 @@ export default class UpFormulaVC extends React.Component {
     }
   }
   componentDidMount() {
-      sqlitehelper = new SQLiteHelper();
-      // sqlitehelper.openDB();
+      sqlHelper = new SqlHelper();
       this.setState({
            uprowid:this.props.rowid,
            visible: true
@@ -632,7 +642,6 @@ export default class UpFormulaVC extends React.Component {
        this._query(this.props.rowid);
   }
   componentWillUnmount(){
-      // sqlitehelper.closeDB();
       this.timer && clearTimeout(this.timer);
   }
   render(){

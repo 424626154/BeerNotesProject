@@ -12,8 +12,9 @@ import {
   DeviceEventEmitter
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
-import SQLiteHelper from '../sqlitehelper';
 import Spinner from 'react-native-loading-spinner-overlay';
+import SqlHelper from '../db/sqlhelper';
+import BNUtil from '../bnutil';
 
 var fData = [];
 // var vc ;
@@ -22,17 +23,31 @@ var maltsds;
 var hopssds;
 var yeastsds;
 var accessoriessds;
-let sqlitehelper;
+
+var sqlHelper;
+
+var fname_img = require('../../resource/fname_normal.png');
+var water_img = require('../../resource/water_normal.png');
+var up_img = require('../../resource/up_normal.png');
+var delete_img = require('../../resource/delete_normal.png');
+var malt_img = require('../../resource/malt_normal.png');
+var hops_img =  require('../../resource/hops_normal.png');
+var yeast_img = require('../../resource/yeast_normal.png');
+var liao_img = require('../../resource/liao_normal.png');
+var add_img = require('../../resource/add_formula_normal.png');
+
 export default class FormulaVC extends React.Component {
   _goBack(){
     this.props.nav.pop();
   }
-  _addFormula(){
+  //添加配方
+  _goAddFormula(){
     this.props.nav.push({
       id:'addformulavc',
       name:'addformulavc'
     })
   }
+  //修改配方
   _goUpFormula(rowid){
     this.props.nav.push({
       id:'upformula',
@@ -45,15 +60,15 @@ export default class FormulaVC extends React.Component {
   _refesh(){
     this._query();
   }
-  _queryCllback(errocode,rows){
+  _queryCllback(errocode,formulas){
     this.setState({
       visible: false
     })
-    console.log('_queryCllback',this.state.visible,errocode,rows);
+    console.log('_queryCllback',this.state.visible,errocode,formulas);
     if(errocode == 0 ){
       fData = [];
-      for(var i = 0 ; i < rows.length;i++){
-        fData.push(rows.item(i));
+      for(var i = 0 ; i < formulas.length;i++){
+        fData.push(BNUtil.cloneFormula(formulas[i]));
       }
       console.log(fData);
       this.setState({
@@ -65,10 +80,9 @@ export default class FormulaVC extends React.Component {
   }
   _query(){
     this.setState({
-      visible: true
+      visible: false
     })
-    console.log('_query',this.state.visible);
-    sqlitehelper.queryAllFormulaDB(this._queryCllback);
+    sqlHelper.queryAllFormulaDB(this._queryCllback);
   }
   _deleteCllback(errocode,rowid){
     this.setState({
@@ -77,7 +91,7 @@ export default class FormulaVC extends React.Component {
     if(errocode == 0){
       if(fData.length > 0){
         for(var i = fData.length-1 ; i >= 0 ;i--){
-          if(fData[i].id == rowid){
+          if(fData[i].fid == rowid){
             fData.splice(i,1);
           }
         }
@@ -94,15 +108,15 @@ export default class FormulaVC extends React.Component {
      this.setState({
        visible: true
      })
-     var rowid = fData[rowID].id;//.rowid;
-     sqlitehelper.deleteFormulaDB(rowid,this._deleteCllback);
+     var rowid = fData[rowID].fid;//.rowid;
+     sqlHelper.deleteFormulaDB(rowid,this._deleteCllback);
    }
    _pressRow(rowID){
      console.log(rowID);
     }
 
   _upRow(rowID){
-      var rowid = fData[rowID].id;
+      var rowid = fData[rowID].fid;
       this._goUpFormula(rowid);
     }
   _renderRow(rowData, sectionID, rowID){
@@ -111,7 +125,7 @@ export default class FormulaVC extends React.Component {
           <View style={styles.rowbg}>
               {/* 配方名称 */}
                <View style={styles.row}>
-                 <Image style={styles.thumb} source={require('../../resource/fname_normal.png')}/>
+                 <Image style={styles.thumb} source={fname_img}/>
                  <Text style={styles.text}>
                  {rowData.fname}
                  </Text>
@@ -126,7 +140,7 @@ export default class FormulaVC extends React.Component {
               {this._renderAccessories(rowData.accessoriess)}
               {/* 水 */}
               <View style={styles.row}>
-              <Image style={styles.thumb} source={require('../../resource/water_normal.png')}/>
+              <Image style={styles.thumb} source={water_img}/>
               <Text style={styles.text}>
               {rowData.water}
               </Text>
@@ -135,12 +149,12 @@ export default class FormulaVC extends React.Component {
               <View style={styles.row}>
               {/* 修改 */}
               <TouchableOpacity onPress={()=>this._upRow(rowID)}>
-              <Image style={styles.thumb} source={require('../../resource/up_normal.png')}/>
+              <Image style={styles.thumb} source={up_img}/>
               </TouchableOpacity>
               <View style={styles.row_iv}></View>
               {/* 删除 */}
               <TouchableOpacity onPress={()=>this._delRow(rowID)}>
-              <Image style={styles.thumb} source={require('../../resource/delete_normal.png')}/>
+              <Image style={styles.thumb} source={delete_img}/>
               </TouchableOpacity>
               </View>
 
@@ -154,7 +168,7 @@ export default class FormulaVC extends React.Component {
       return(
          <View>
           <View style={styles.row}>
-            <Image style={styles.thumb} source={require('../../resource/malt_normal.png')}/>
+            <Image style={styles.thumb} source={malt_img}/>
           </View>
           <ListView
             enableEmptySections={true}
@@ -192,7 +206,7 @@ export default class FormulaVC extends React.Component {
       return(
          <View>
           <View style={styles.row}>
-            <Image style={styles.thumb} source={require('../../resource/hops_normal.png')}/>
+            <Image style={styles.thumb} source={hops_img}/>
           </View>
           <ListView
             enableEmptySections={true}
@@ -230,7 +244,7 @@ export default class FormulaVC extends React.Component {
     return(
        <View>
         <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/yeast_normal.png')}/>
+          <Image style={styles.thumb} source={yeast_img}/>
         </View>
         <ListView
           enableEmptySections={true}
@@ -262,21 +276,23 @@ export default class FormulaVC extends React.Component {
           </View>
     )
   }
-  //加载酵母
+  //加载其他辅料
   _renderAccessories(accessoriess){
-    var accessoriessData = accessoriessds.cloneWithRows(JSON.parse(accessoriess))
-    return(
-       <View>
-        <View style={styles.row}>
-          <Image style={styles.thumb} source={require('../../resource/liao_normal.png')}/>
+    if(accessoriess.length > 0 ){
+      var accessoriessData = accessoriessds.cloneWithRows(JSON.parse(accessoriess))
+      return(
+         <View>
+          <View style={styles.row}>
+            <Image style={styles.thumb} source={liao_img}/>
+          </View>
+          <ListView
+            enableEmptySections={true}
+            dataSource={accessoriessData}
+            renderRow={this._renderAccessoriesRow.bind(this)}
+          />
         </View>
-        <ListView
-          enableEmptySections={true}
-          dataSource={accessoriessData}
-          renderRow={this._renderAccessoriesRow.bind(this)}
-        />
-      </View>
-    )
+      )
+    }
   }
   _renderAccessoriesRow(rowData, sectionID, rowID){
     return(
@@ -318,13 +334,11 @@ export default class FormulaVC extends React.Component {
     };
   }
   componentDidMount() {
-      sqlitehelper = new SQLiteHelper();
-      // sqlitehelper.openDB();
+      sqlHelper = new SqlHelper();
       this.subscription = DeviceEventEmitter.addListener('refesh',this._refesh);
       this._query();
   }
   componentWillUnmount(){
-      // sqlitehelper.closeDB();
       this.subscription.remove();
   }
   render(){
@@ -350,8 +364,9 @@ export default class FormulaVC extends React.Component {
           renderRow={this._renderRow.bind(this)}
         />
         <View style={styles.add} >
-        <TouchableOpacity onPress={()=>this._addFormula()}>
-        <Image style={styles.addimg}source={require('../../resource/add_formula_normal.png')}></Image>
+        <TouchableOpacity onPress={()=>this._goAddFormula()}>
+        <Image style={styles.addimg}
+        source={add_img}></Image>
         </TouchableOpacity>
         </View>
         <Spinner visible={this.state.visible} textContent={"Loading..."} textStyle={{color: '#FFF'}} />

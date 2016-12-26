@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+extern NSString * const UMENG_KEY;
 extern NSString * const ALBC_FKEY;
+extern NSString * const Bugly_KEY;
 @interface AppConfig : NSObject
 
 @end

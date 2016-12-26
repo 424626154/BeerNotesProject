@@ -4,26 +4,30 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import SQLite from 'react-native-sqlite-storage'
-import {
-  AppRegistry,
-  View,
-  Navigator
-} from 'react-native';
+ import React, { Component } from 'react';
+ import {
+   AppRegistry,
+   Navigator
+ } from 'react-native';
 
-import NavUitl from './app/navutil'
-import BNConfig from './app/config'
+ import NavUitl from './app/navutil'
+ import BNConfig from './app/config'
+ var entrance;
 
-export default class BeerNotesRN extends Component {
-  render() {
-    return (
-      <Navigator
-          initialRoute={{name: BNConfig.getEntrance(), index: 0, id:BNConfig.getEntrance()}}
-          renderScene={(route, navigator) => NavUitl.renderPage(route,navigator)}
-      />
-    );
-  }
-}
+ export default class BeerNotesRN extends Component {
+   render() {
+     return (
+       <Navigator
+           initialRoute={{name:entrance , index: 0, id:entrance}}
+           renderScene={(route, navigator) => NavUitl.renderPage(route,navigator)}
+       />
+     );
+   }
+   constructor(props){
+     super(props);
+     entrance = BNConfig.getEntrance()
+   }
+ }
 
-AppRegistry.registerComponent('BeerNotesRN', () => BeerNotesRN);
+
+ AppRegistry.registerComponent('BeerNotesRN', () => BeerNotesRN);

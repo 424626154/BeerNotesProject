@@ -1,13 +1,11 @@
-  platform :ios,'8.0' #手机的系统
-  target 'BeerNotesRN' do
-  pod 'AMap3DMap'  #3D地图SDK
-  #pod 'AMap2DMap' #2D地图SDK (2D和3D不能同时使⽤用)
-  pod 'AMapSearch' #搜索服务SDK
-  pod 'IQKeyboardManager'  
-  pod 'RMStore', '~> 0.7'  
-  pod 'UMengAnalytics'  
-  source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecs.git'
-  source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecsMirror.git'
-  pod 'YWFeedbackFMWK', '~> 2.0.3.1'  
-  pod 'TWMessageBarManager'  
-  end
+source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecs.git'
+source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecsMirror.git'
+ 
+target 'BeerNotesRN' do
+pod 'YWFeedbackFMWK', '~> 2.0.3.1'  
+pod 'TWMessageBarManager'
+#标准SDK，含IDFA
+pod 'UMengAnalytics'
+pod 'IQKeyboardManager'
+pod 'Bugly'
+end

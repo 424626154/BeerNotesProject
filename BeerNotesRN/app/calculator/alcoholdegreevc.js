@@ -12,8 +12,7 @@ import {
 } from 'react-native';
 
 import NavigationBar from 'react-native-navbar';
-var vc;
-var sqlitehelper;
+
 var s_p_img = require('../../resource/proportion_normal.png');
 var e_p_img = require('../../resource/proportion_normal.png');
 var s_c_img = require('../../resource/concentration_normal.png');
@@ -240,7 +239,6 @@ export default class AlcoholDegreeVC extends React.Component {
   }
   constructor(props){
     super(props);
-    vc = this;
     this.state = {
       p2c:true,//true密度转浓度 false 浓度转密度
       f_pc:'',//1.032

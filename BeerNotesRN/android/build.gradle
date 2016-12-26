@@ -12,8 +12,6 @@ buildscript {
     }
 }
 
-
-
 allprojects {
     repositories {
         mavenLocal()
@@ -22,12 +20,9 @@ allprojects {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
-//        maven {
-//            url 'http://www.idescout.com/maven/repo/'
-//        }
-        mavenCentral()
         flatDir {
             dirs 'libs'
         }
+        mavenCentral()
     }
 }

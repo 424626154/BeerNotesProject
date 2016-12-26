@@ -7,13 +7,13 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  View,
   Navigator
 } from 'react-native';
 
 import NavUitl from './app/navutil'
 import BNConfig from './app/config'
 var entrance;
+
 export default class BeerNotesRN extends Component {
   render() {
     return (
@@ -28,5 +28,6 @@ export default class BeerNotesRN extends Component {
     entrance = BNConfig.getEntrance()
   }
 }
+
 
 AppRegistry.registerComponent('BeerNotesRN', () => BeerNotesRN);
