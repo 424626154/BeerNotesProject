@@ -11,6 +11,7 @@
     "react-native": "0.39.2",
     "react-native-loading-spinner-overlay": "^0.4.1",
     "react-native-navbar": "^1.5.4",
+    "react-native-update": "^4.0.0",
     "react-native-uuid": "^1.4.9",
     "realm": "^0.15.0"
   },

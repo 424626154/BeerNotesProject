@@ -32,8 +32,11 @@
 		443143B51E0C3116001C6C3B /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 443143B31E0C3116001C6C3B /* libUMessage_Sdk_1.4.0.a */; };
 		443143CA1E0C313C001C6C3B /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 443143C91E0C313C001C6C3B /* UserNotifications.framework */; };
 		443144171E0C50AF001C6C3B /* yw_1222.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 443144161E0C50AF001C6C3B /* yw_1222.jpg */; };
+		444763E71E129E48006D3B7E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 443143331E0C2976001C6C3B /* libz.tbd */; };
+		444763FE1E129E50006D3B7E /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 444763FD1E129E50006D3B7E /* libbz2.1.0.tbd */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		87A2A5885B11431499247F20 /* libRCTHotUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C730F04EDA4C65B8A66481 /* libRCTHotUpdate.a */; };
 		DD550ADA80FD43E08E5D7D0B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BEFB6CAB3814CEA8623996F /* libc++.tbd */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +160,13 @@
 			remoteGlobalIDString = F60690131CA2766F0003FB26;
 			remoteInfo = RealmReact;
 		};
+		44F18C5B1E11873500D95096 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 323F41E818C243DAB61E5D5D /* RCTHotUpdate.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 91C5EFFF1C76ECA90037E727;
+			remoteInfo = RCTHotUpdate;
+		};
 		5E9157321DD0AC6500FF2AA8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
@@ -209,6 +219,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		27C8CE686F1640178BB8FCD5 /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRealmReact.a; sourceTree = "<group>"; };
 		2EC50EC2A094B73406631101 /* libPods-BeerNotesRN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeerNotesRN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		323F41E818C243DAB61E5D5D /* RCTHotUpdate.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTHotUpdate.xcodeproj; path = "../node_modules/react-native-update/ios/RCTHotUpdate.xcodeproj"; sourceTree = "<group>"; };
 		443142DB1E0C21D0001C6C3B /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		443142DC1E0C21D0001C6C3B /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		443142DD1E0C21D0001C6C3B /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
@@ -229,11 +240,13 @@
 		443143C91E0C313C001C6C3B /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		443143CB1E0C315F001C6C3B /* BeerNotesRN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = BeerNotesRN.entitlements; path = BeerNotesRN/BeerNotesRN.entitlements; sourceTree = "<group>"; };
 		443144161E0C50AF001C6C3B /* yw_1222.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yw_1222.jpg; sourceTree = "<group>"; };
+		444763FD1E129E50006D3B7E /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6BEFB6CAB3814CEA8623996F /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8575E63352CD28BC9A935E78 /* Pods-BeerNotesRN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeerNotesRN.release.xcconfig"; path = "Pods/Target Support Files/Pods-BeerNotesRN/Pods-BeerNotesRN.release.xcconfig"; sourceTree = "<group>"; };
+		88C730F04EDA4C65B8A66481 /* libRCTHotUpdate.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTHotUpdate.a; sourceTree = "<group>"; };
 		AEE05BBCC4314FC18EA859D9 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RealmReact.xcodeproj; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; };
 		BAEAA2EE04FD4988CCF571D4 /* Pods-BeerNotesRN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeerNotesRN.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BeerNotesRN/Pods-BeerNotesRN.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -251,6 +264,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				444763FE1E129E50006D3B7E /* libbz2.1.0.tbd in Frameworks */,
+				444763E71E129E48006D3B7E /* libz.tbd in Frameworks */,
 				443143CA1E0C313C001C6C3B /* UserNotifications.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -267,6 +282,7 @@
 				278C7CAE8CFA6AF9D62BCD14 /* libPods-BeerNotesRN.a in Frameworks */,
 				07CECB9CC49B47D88D410E1E /* libRealmReact.a in Frameworks */,
 				DD550ADA80FD43E08E5D7D0B /* libc++.tbd in Frameworks */,
+				87A2A5885B11431499247F20 /* libRCTHotUpdate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +427,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		44F18C541E11873500D95096 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				44F18C5C1E11873500D95096 /* libRCTHotUpdate.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,6 +468,7 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				AEE05BBCC4314FC18EA859D9 /* RealmReact.xcodeproj */,
+				323F41E818C243DAB61E5D5D /* RCTHotUpdate.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -493,6 +518,7 @@
 		EE28CFFEA7FF6EFCE55D06DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				444763FD1E129E50006D3B7E /* libbz2.1.0.tbd */,
 				443143C91E0C313C001C6C3B /* UserNotifications.framework */,
 				4431433B1E0C29AC001C6C3B /* SystemConfiguration.framework */,
 				443143391E0C2997001C6C3B /* CoreTelephony.framework */,
@@ -595,6 +621,10 @@
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
+				},
+				{
+					ProductGroup = 44F18C541E11873500D95096 /* Products */;
+					ProjectRef = 323F41E818C243DAB61E5D5D /* RCTHotUpdate.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302BC1ABCB91800DB3ED1 /* Products */;
@@ -752,6 +782,13 @@
 			fileType = archive.ar;
 			path = libRealmReact.a;
 			remoteRef = 44F18C381E11713000D95096 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		44F18C5C1E11873500D95096 /* libRCTHotUpdate.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTHotUpdate.a;
+			remoteRef = 44F18C5B1E11873500D95096 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */ = {
@@ -927,6 +964,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeerNotesRN.app/BeerNotesRN";
@@ -944,6 +982,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1045,6 +1084,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native/ReactCommon/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1086,6 +1126,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native/ReactCommon/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

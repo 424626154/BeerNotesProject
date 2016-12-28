@@ -8,10 +8,28 @@ import {
   View,
   ListView,
   Image,
-  Text
+  Text,
+  Platform,
+  Alert,
+  Linking
 } from 'react-native';
 
+import {
+  isFirstTime,
+  isRolledBack,
+  packageVersion,
+  currentVersion,
+  checkUpdate,
+  downloadUpdate,
+  switchVersion,
+  switchVersionLater,
+  markSuccess,
+} from 'react-native-update';
+
 import NavigationBar from 'react-native-navbar';
+
+import _updateConfig from '../update.json';
+const {appKey} = _updateConfig[Platform.OS];
 
 var listData= [
   {
@@ -75,6 +93,17 @@ export default class HomeVC extends React.Component {
       )
     }
 
+    _initUpdate(){
+      console.log("currentVersion:",currentVersion,"isFirstTime:",isFirstTime,"isRolledBack:",isRolledBack)
+      if (isFirstTime) {
+         Alert.alert('提示', '这是当前版本第一次启动,是否要模拟启动失败?失败将回滚到上一版本', [
+           {text: '是', onPress: ()=>{throw new Error('模拟启动失败,请重启应用')}},
+           {text: '否', onPress: ()=>{markSuccess()}},
+         ]);
+       } else if (isRolledBack) {
+         Alert.alert('提示', '刚刚更新失败了,版本被回滚.');
+       }
+    }
     constructor(props){
       super(props);
       this._renderRow = this._renderRow.bind(this)
@@ -82,6 +111,8 @@ export default class HomeVC extends React.Component {
       this.state = {
         dataSource: ds.cloneWithRows(listData),
       };
+      // console.log("appKey:",appKey);
+      this._initUpdate();
     }
     componentDidMount() {
 
@@ -89,6 +120,7 @@ export default class HomeVC extends React.Component {
     componentWillUnmount(){
 
     }
+
     render(){
       var titleConfig = {
         title: '家酿笔记',

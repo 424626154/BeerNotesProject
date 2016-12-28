@@ -17,6 +17,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import "UMessage.h"
 #import <Bugly/Bugly.h>
+#import "RCTHotUpdate.h"
 
 @interface AppDelegate()<UNUserNotificationCenterDelegate>
 {
@@ -31,8 +32,13 @@
 {
   NSURL *jsCodeLocation;
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
-
+//  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+#if DEBUG
+  // 原来的jsCodeLocation
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.100:8081/index.ios.bundle?platform=ios&dev=true"];
+#else
+  jsCodeLocation=[RCTHotUpdate bundleURL];
+#endif
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"BeerNotesRN"
                                                initialProperties:nil

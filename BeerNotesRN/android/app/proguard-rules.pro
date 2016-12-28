@@ -65,6 +65,7 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
 
+-keepattributes EnclosingMethod
 
 #bugly
 
@@ -72,8 +73,54 @@
 -keep public class com.tencent.bugly.**{*;}
 
 #umeng
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
 
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+
+#umeng push
+
+-dontwarn com.taobao.**
+-dontwarn anet.channel.**
+-dontwarn anetwork.channel.**
+-dontwarn org.android.**
+-dontwarn org.apache.thrift.**
+-dontwarn com.xiaomi.**
+-dontwarn com.huawei.**
+
+-keepattributes *Annotation*
+
+-keep class com.taobao.** {*;}
+-keep class org.android.** {*;}
+-keep class anet.channel.** {*;}
+-keep class com.umeng.** {*;}
+-keep class com.xiaomi.** {*;}
+-keep class com.huawei.** {*;}
+-keep class org.apache.thrift.** {*;}
+
+-keep class com.alibaba.sdk.android.**{*;}
+-keep class com.ut.**{*;}
+-keep class com.ta.**{*;}
+
+-keep public class **.R$*{
+   public static final int *;
+}
+
+#阿里百川
+
+-keep class com.alibaba.sdk.android.feedback.impl.FeedbackServiceImpl {*;}
+-keep class com.alibaba.sdk.android.feedback.impl.FeedbackAPI {*;}
+-keep class com.alibaba.sdk.android.feedback.util.IWxCallback {*;}
+-keep class com.alibaba.sdk.android.feedback.util.IUnreadCountCallback{*;}
+-keep class com.alibaba.sdk.android.feedback.FeedbackService{*;}
+-keep public class com.alibaba.mtl.log.model.LogField {public *;}
+-keep class com.taobao.securityjni.**{*;}
+-keep class com.taobao.wireless.security.**{*;}
+-keep class com.ut.secbody.**{*;}
+-keep class com.taobao.dp.**{*;}
+-keep class com.alibaba.wireless.security.**{*;}
+-keep class com.ta.utdid2.device.**{*;}

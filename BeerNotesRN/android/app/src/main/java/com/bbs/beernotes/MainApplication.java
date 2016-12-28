@@ -12,6 +12,9 @@ import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.bbs.beernotes.rnview.AppConfig;
 import com.bbs.beernotes.rnview.AppReactPackage;
 import com.facebook.react.ReactApplication;
+
+import cn.reactnative.modules.update.UpdateContext;
+import cn.reactnative.modules.update.UpdatePackage;
 import io.realm.react.RealmReactPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -39,6 +42,12 @@ import static com.bbs.beernotes.rnview.AppConfig.isCrashEnable;
 public class MainApplication extends Application implements ReactApplication {
   private static final String TAG = MainApplication.class.getName();
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
+    @Override
+    protected String getJSBundleFile() {
+      return UpdateContext.getBundleUrl(MainApplication.this);
+    }
+
     @Override
     protected boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -48,6 +57,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new UpdatePackage(),
             new RealmReactPackage(),
               new AppReactPackage()
       );
@@ -58,6 +68,7 @@ public class MainApplication extends Application implements ReactApplication {
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
   }
+
 
   @Override
   public void onCreate() {
