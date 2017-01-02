@@ -1,6 +1,7 @@
 source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecs.git'
 source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecsMirror.git'
- 
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0' 
 target 'BeerNotesRN' do
 pod 'YWFeedbackFMWK', '~> 2.0.3.1'  
 pod 'TWMessageBarManager'
@@ -8,4 +9,5 @@ pod 'TWMessageBarManager'
 pod 'UMengAnalytics'
 pod 'IQKeyboardManager'
 pod 'Bugly'
+pod 'AFNetworking', '~> 3.0'
 end

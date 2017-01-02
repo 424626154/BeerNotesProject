@@ -4,7 +4,7 @@ import uuid from 'react-native-uuid';
 const Realm = require('realm');
 
 let realm ;
-var db_verison = 3;
+var db_verison = 4;
 
 var FormulaTable = 'formula';
 // var FName = 'fname';//配方名称
@@ -13,6 +13,8 @@ var FormulaTable = 'formula';
 // var Yeasts = 'yeasts';//酵母
 // var Water = 'water';//水
 // var Accessoriess = 'accessoriess';//辅料
+
+var MessageTable = 'message';
 
 var success_code = 0;//成功
 var if_code = 1001;//插入配方失败
@@ -37,6 +39,16 @@ const FormulaSchema = {
   }
 };
 
+const MessageSchema = {
+  name: MessageTable,
+  primaryKey: 'mid',
+  properties: {
+    mid:'string',//id
+    title:  'string',
+    content:  'string',
+  }
+}
+
 export default class SqlHelper
 {
 
@@ -47,7 +59,7 @@ export default class SqlHelper
       if(!realm){
         realm = new Realm({
             path: 'beernotes.realm',
-            schema: [FormulaSchema],
+            schema: [FormulaSchema,MessageSchema],
             schemaVersion: db_verison,
             migration: function(oldRealm, newRealm) {
               console.log('oldRealm.schemaVersion:',oldRealm.schemaVersion,
@@ -146,6 +158,52 @@ export default class SqlHelper
         if (typeof callback === "function") {
           console.log('---brsql---  更新配方:',formula);
           callback(success_code);
+        }
+      });
+    }
+
+    /**
+    *插入消息
+    **/
+    insertMessageDB(title,text,callback){
+      var id = uuid.v4();
+      console.log(id,title,text)
+      realm.write(() => {
+        var message = realm.create(MessageTable, {
+          mid:id,//id
+          title:  title,
+          content:text
+        });
+        if (typeof callback === "function") {
+          console.log("---brsql--- 插入消息:",message,message.fid)
+          callback(success_code,message.mid)
+        }
+      });
+    }
+    /**
+    *查询全部消息
+    **/
+    queryAllMessageDB(callback){
+      realm.write(() => {
+        var messages = realm.objects(MessageTable)
+        if (typeof callback === "function") {
+          console.log('---brsql---  查询全部消息:',messages,messages.length)
+          callback(success_code,messages)
+        }
+      });
+    }
+    /**
+    *删除消息
+    **/
+    deleteMessageDB(rowid,callback){
+      realm.write(() => {
+        var filtered = 'mind = "'+rowid+'"';
+        var messages=realm.objects(MessageTable);
+        var message=formulas.filtered(filtered);
+        realm.delete(message);
+        if (typeof callback === "function") {
+          console.log('---brsql---  删除单个消息:',rowid);
+          callback(success_code,rowid);
         }
       });
     }

@@ -11,7 +11,9 @@ import {
   Text,
   Platform,
   Alert,
-  Linking
+  Linking,
+  NativeAppEventEmitter,
+  DeviceEventEmitter
 } from 'react-native';
 
 import {
@@ -27,6 +29,7 @@ import {
 } from 'react-native-update';
 
 import NavigationBar from 'react-native-navbar';
+import SqlHelper from './db/sqlhelper';
 
 import _updateConfig from '../update.json';
 const {appKey} = _updateConfig[Platform.OS];
@@ -41,12 +44,17 @@ var listData= [
   img:require('../resource/alcohol_degree_normal.png')
   },
   {
+  text:'消息',
+  img:require('../resource/message_normal.png')
+  },
+  {
   text:'更多',
   img:require('../resource/more_normal.png')
   }
 ];
 var ds = null;
-
+var sqlHelper;
+var subscription;
 export default class HomeVC extends React.Component {
     // 进入配方
     _goFormula(){
@@ -62,6 +70,12 @@ export default class HomeVC extends React.Component {
         name:'alcoholdegreevc'
       })
     }
+    _goMessageVC(){
+      this.props.nav.push({
+        id:'messagevc',
+        name:'messagevc'
+      })
+    }
     //进入更多
     _goMorevc(){
       this.props.nav.push({
@@ -75,6 +89,8 @@ export default class HomeVC extends React.Component {
       }else if(rowID == 1){
         this._goAlcoholDegreeVC();
       }else if(rowID == 2){
+        this._goMessageVC();
+      }else if(rowID == 3){
         this._goMorevc();
       }
     }
@@ -94,7 +110,7 @@ export default class HomeVC extends React.Component {
     }
 
     _initUpdate(){
-      console.log("currentVersion:",currentVersion,"isFirstTime:",isFirstTime,"isRolledBack:",isRolledBack)
+      // console.log("currentVersion:",currentVersion,"isFirstTime:",isFirstTime,"isRolledBack:",isRolledBack)
       if (isFirstTime) {
          Alert.alert('提示', '这是当前版本第一次启动,是否要模拟启动失败?失败将回滚到上一版本', [
            {text: '是', onPress: ()=>{throw new Error('模拟启动失败,请重启应用')}},
@@ -104,18 +120,24 @@ export default class HomeVC extends React.Component {
          Alert.alert('提示', '刚刚更新失败了,版本被回滚.');
        }
     }
+
     constructor(props){
       super(props);
-      this._renderRow = this._renderRow.bind(this)
+      this._renderRow = this._renderRow.bind(this);
       ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.state = {
         dataSource: ds.cloneWithRows(listData),
       };
       // console.log("appKey:",appKey);
       this._initUpdate();
+      sqlHelper = new SqlHelper();
     }
     componentDidMount() {
-
+      DeviceEventEmitter.addListener('saveMessage', function(e: Event) {
+         // handle event.
+         console.log('bn saveMessage:',e)
+         sqlHelper.insertMessageDB(e.title,e.text);
+       });
     }
     componentWillUnmount(){
 
@@ -146,7 +168,8 @@ export default class HomeVC extends React.Component {
       marginTop:5,
       justifyContent: 'space-around',
       flexDirection: 'row',
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
+      alignItems: 'flex-start',
     },
     row: {
       justifyContent: 'center',

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactMethod;
@@ -17,12 +18,14 @@ import com.facebook.react.bridge.ReactMethod;
 
 public class AppManager extends ReactContextBaseJavaModule {
 
+    private static ReactContext  reactContext;
     @Override
     public String getName() {
         return "AppManager";
     }
     public AppManager(ReactApplicationContext reactContext) {
         super(reactContext);
+        this.reactContext = reactContext;
     }
     @ReactMethod
     public void getAppVersion(Callback successCallback, Callback errorCallback){
@@ -54,5 +57,9 @@ public class AppManager extends ReactContextBaseJavaModule {
     @ReactMethod
     public void startFeedbackActivity(){
         FeedbackAPI.openFeedbackActivity();
+    }
+
+    public static ReactContext getgetReactContext(){
+        return reactContext;
     }
 }

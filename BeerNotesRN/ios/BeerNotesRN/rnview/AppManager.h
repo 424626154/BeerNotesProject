@@ -10,4 +10,5 @@
 #import "RCTBridgeModule.h"
 @interface AppManager : NSObject<RCTBridgeModule>
 
+
 @end

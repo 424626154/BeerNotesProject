@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
   - BCUserTrack (5.1.0.9):
     - UTDID
   - Bugly (2.4.2)
@@ -15,6 +30,7 @@ PODS:
     - SGMain
 
 DEPENDENCIES:
+  - AFNetworking (~> 3.0)
   - Bugly
   - IQKeyboardManager
   - TWMessageBarManager
@@ -22,6 +38,7 @@ DEPENDENCIES:
   - YWFeedbackFMWK (~> 2.0.3.1)
 
 SPEC CHECKSUMS:
+  AFNetworking: 18af9c7b41a3fd4d184bc1d3a9f0f32ddb90179b
   BCUserTrack: 684f468b8143be7a2ed10a8c449fd959b2a3a099
   Bugly: b09cd3c7e54048a0e079be88a7a99610f14eab8f
   IQKeyboardManager: 63d284b5bfe71c5639ccf6679dc2cb2a1a8f530e
@@ -32,6 +49,6 @@ SPEC CHECKSUMS:
   UTDID: c28855683c5ea2e77e597cb14609328f7d470d6e
   YWFeedbackFMWK: dcf0f60a24099f9a35d3445ae9ef79f3633ef9f6
 
-PODFILE CHECKSUM: d13548b20503e450a51996cc45084e07206bd743
+PODFILE CHECKSUM: b43c3ba89b960bc3e2c0fec4a1d02420ddd0863f
 
 COCOAPODS: 1.1.1

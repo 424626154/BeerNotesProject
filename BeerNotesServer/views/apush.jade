@@ -1,0 +1,14 @@
+doctype html
+html
+	head
+		title 精酿笔记
+	body 
+	form(enctype="application/x-www-from-urlencoded", action="/admin/push", method="post")
+		div
+			label 标题
+			input(id="title",name="title",placeholder="输入标题") 
+
+		div
+			label 内容
+			textarea(id="content",name="content",placeholder="输入内容")
+		button(type="submit") 发送

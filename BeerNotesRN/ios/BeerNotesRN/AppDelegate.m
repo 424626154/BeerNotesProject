@@ -18,10 +18,14 @@
 #import "UMessage.h"
 #import <Bugly/Bugly.h>
 #import "RCTHotUpdate.h"
+#import "AppManager.h"
+#import "AFNetworking.h"//主要用于网络请求方法
+#import "UIKit+AFNetworking.h"//里面有异步加载图片的方法
+
 
 @interface AppDelegate()<UNUserNotificationCenterDelegate>
 {
-  
+ 
 }
 
 @end
@@ -35,7 +39,7 @@
 //  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 #if DEBUG
   // 原来的jsCodeLocation
-  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.100:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.103:8081/index.ios.bundle?platform=ios&dev=true"];
 #else
   jsCodeLocation=[RCTHotUpdate bundleURL];
 #endif
@@ -66,6 +70,8 @@
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
   NSLog(@"My token is: %@",[self stringDevicetoken:deviceToken]);
+  NSString *token = [self stringDevicetoken:deviceToken];
+  [self uploadToken:token];
 }
 /*!
  *  @author Yunis_song, 15-03-27 17:03:28
@@ -86,10 +92,26 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
   NSLog(@"userinfor is : %@", userInfo);
+  NSDictionary *apsInfo = [userInfo objectForKey:@"aps"];
+  if(apsInfo)
+  {
+    NSString *alert = [apsInfo objectForKey:@"alert"];
+    [[NSNotificationCenter defaultCenter]  postNotificationName:@"Notification_SaveMessage" object:[NSDictionary dictionaryWithObjectsAndKeys:alert , @"alert",nil]];
+
+  }
   //关闭友盟自带的弹出框
   [UMessage setAutoAlert:NO];
   [UMessage didReceiveRemoteNotification:userInfo];
 }
+
+//iOS10以前接收的方法
+-(void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler
+{
+		//这个方法用来做action点击的统计
+  [UMessage sendClickReportForRemoteNotification:userInfo];
+		//下面写identifier对各个交互式的按钮进行业务处理
+}
+
 //iOS10新增：处理前台收到通知的代理方法
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
   NSDictionary * userInfo = notification.request.content.userInfo;
@@ -167,5 +189,27 @@
   NSString *pushToken = [[[token stringByReplacingOccurrencesOfString:@"<"withString:@""]                   stringByReplacingOccurrencesOfString:@">"withString:@""] stringByReplacingOccurrencesOfString:@" "withString:@""];
   return pushToken;
 }
+
+-(void)uploadToken:(NSString*)token
+{
+  NSString *URLString = @"http://192.168.1.103:3000/bnapp/uploadtoken";
+  NSDictionary *param = @{@"token":token,@"ostype":@"ios"};
+  AFHTTPSessionManager *manage = [AFHTTPSessionManager manager];
+  //设置requestSerializer
+  [manage.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+  [manage POST:URLString parameters:param progress:nil success:^(NSURLSessionTask *task,id responseObject){
+    NSDictionary *dic = (NSDictionary*)responseObject;
+    NSLog(@"errcode :%@",[dic objectForKey:@"errcode"]);
+    int errcode = [[dic objectForKey:@"errcode"] intValue];
+    if (errcode == 0) {
+      NSLog(@"uploadtoken data :%@",[dic objectForKey:@"data"]);
+    }else{
+      NSLog(@"uploadtoken errmsg :%@",[dic objectForKey:@"errmsg"]);
+    }
+  }failure:^(NSURLSessionTask *operation,NSError *error){
+    NSLog(@"error:%@",error);
+  }];
+}
+
 
 @end

@@ -25,6 +25,9 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+        <service android:name="com.bbs.beernotes.BNPushMessageService" />
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5846ec8eae1bf8125b000d7d">

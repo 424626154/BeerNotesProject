@@ -23,6 +23,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   [self openFeedbackViewController];
+  NSString *alert = @"alert";
+  [[NSNotificationCenter defaultCenter]  postNotificationName:@"Notification_SaveMessage" object:[NSDictionary dictionaryWithObjectsAndKeys:alert , @"alert",nil]];
 }
 
 - (void)didReceiveMemoryWarning {

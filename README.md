@@ -1,5 +1,10 @@
 # BeerNotesProject
 ##服务器 
+
+
+
+##客户端
+
 应用的开源三方库
 
 react-native-navbar
@@ -20,8 +25,5 @@ npm install react-native-uuid
 bugly-崩溃日志
 
 阿里百川-意见反馈
-
-
-##客户端
 
 
