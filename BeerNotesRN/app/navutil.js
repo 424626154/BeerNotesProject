@@ -9,7 +9,9 @@ import UpFormulaVC from "./formula/upformula";
 import AlcoholDegreeVC from './calculator/alcoholdegreevc';
 import MoreVC from './more/morevc';
 import BNFeedbackVC from './more/bnfeedbackvc';
-import MessageVC from './messagevc.js';
+import MessageVC from './messagevc';
+import Co2VC from './co2/co2vc';
+import Co2ReferenceVC from './co2/co2referencevc';
 
 export default class NavUitl extends React.Component {
   static renderPage(route, nav) {
@@ -37,6 +39,12 @@ export default class NavUitl extends React.Component {
         break;
       case 'messagevc':
         return(<MessageVC nav={nav}/>);
+        break;
+      case 'co2vc':
+        return(<Co2VC nav={nav}/>);
+        break;
+      case 'co2referencevc':
+        return(<Co2ReferenceVC nav={nav}/>);
         break;
 		}
 	}

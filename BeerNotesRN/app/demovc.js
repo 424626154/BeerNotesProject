@@ -16,6 +16,7 @@ export default class MeVC extends React.Component {
   render(){
     const leftButtonConfig = {
        title: '返回',
+       tintColor:'#ffffff',
        handler: () => this._goBack(),
      };
     var titleConfig = {

@@ -44,6 +44,10 @@ var listData= [
   img:require('../resource/alcohol_degree_normal.png')
   },
   {
+  text:'二氧化碳',
+  img:require('../resource/co2_normal.png')
+  },
+  {
   text:'消息',
   img:require('../resource/message_normal.png')
   },
@@ -57,7 +61,7 @@ var sqlHelper;
 var subscription;
 export default class HomeVC extends React.Component {
     // 进入配方
-    _goFormula(){
+    _goFormulaVC(){
       this.props.nav.push({
         id:'formulavc',
         name:'formulavc'
@@ -68,6 +72,12 @@ export default class HomeVC extends React.Component {
       this.props.nav.push({
         id:'alcoholdegreevc',
         name:'alcoholdegreevc'
+      })
+    }
+    _goCo2VC(){
+      this.props.nav.push({
+        id:'co2vc',
+        name:'co2vc'
       })
     }
     _goMessageVC(){
@@ -85,12 +95,14 @@ export default class HomeVC extends React.Component {
     }
     _pressRow(rowID){
       if(rowID == 0 ){
-        this._goFormula();
+        this._goFormulaVC();
       }else if(rowID == 1){
         this._goAlcoholDegreeVC();
       }else if(rowID == 2){
-        this._goMessageVC();
+        this._goCo2VC();
       }else if(rowID == 3){
+        this._goMessageVC();
+      }else if(rowID == 4){
         this._goMorevc();
       }
     }

@@ -585,7 +585,7 @@ export default class AddFormulaVC extends React.Component {
             placeholder={'请输入水重量'}
             underlineColorAndroid="transparent"
           />
-          <Text style={styles.text2}>{'克'}</Text>
+          <Text style={styles.text2}>{'升'}</Text>
        </View>
      </View>
     )

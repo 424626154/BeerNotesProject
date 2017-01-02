@@ -144,6 +144,7 @@ export default class FormulaVC extends React.Component {
               <Text style={styles.text}>
               {rowData.water}
               </Text>
+              <Text style={styles.text2}>{'升'}</Text>
               </View>
               {/* 功能栏 */}
               <View style={styles.row}>

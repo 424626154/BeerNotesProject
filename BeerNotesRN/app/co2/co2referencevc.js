@@ -5,43 +5,61 @@ import {
   AppRegistry,
   StyleSheet,
   View,
-  Text,
   ListView,
   Image,
+  Text,
   TouchableOpacity,
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
-import SqlHelper from './db/sqlhelper';
-var ds;
-var listData= [];
-var sqlHelper;
-export default class MessageVC extends React.Component {
+
+var listData= [
+  {
+  title:'啤酒种类',
+  text:'co2体积'
+  },
+  {
+  title:'英国艾尔,棕艾,世涛,波特',
+  text:'1.5～2.2',
+  },
+  {
+  title:'美国艾尔',
+  text:'2.2～3.0',
+  },
+  {
+  title:'德国小麦啤酒',
+  text:'2.8～5.1',
+  },
+  {
+  title:'比利时艾尔',
+  text:'2.0～4.5',
+  },
+  {
+  title:'欧洲拉格',
+  text:'2.4～2.6',
+  },
+  {
+  title:'美国拉格',
+  text:'2.5～2.8',
+  }
+];
+var ds = null;
+export default class MeVC extends React.Component {
   _goBack(){
     this.props.nav.pop();
   }
-  _queryCllback(errocode,messages){
-    console.log('_queryCllback',errocode,messages);
-    if(errocode == 0){
-          listData = messages;
-    }
-  }
-  _query(){
-    sqlHelper.queryAllMessageDB(this._queryCllback);
-  }
-  _pressRow(rowID){
-    console.log(rowID);
-   }
   _renderRow(rowData, sectionID, rowID){
       return (
           <TouchableOpacity onPress={()=>this._pressRow(rowID)}>
-          <View >
-            <View style={styles.row}>
-            <Text style={styles.text}>
-              {rowData.title}
-            </Text>
+          <View style={styles.row}>
+            <View style={styles.row1}>
               <Text style={styles.text}>
-                {rowData.content}
+                {rowData.title}
               </Text>
+            </View>
+            <View style={styles.row1}>
+            <Text style={styles.text}>
+              {rowData.text}
+            </Text>
             </View>
           </View>
           </TouchableOpacity>
@@ -49,14 +67,14 @@ export default class MessageVC extends React.Component {
     }
     constructor(props){
       super(props);
+      this._renderRow = this._renderRow.bind(this);
       ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.state = {
         dataSource: ds.cloneWithRows(listData),
       };
     }
     componentDidMount() {
-      sqlHelper = new SqlHelper();
-      this._query();
+
     }
     componentWillUnmount(){
 
@@ -68,7 +86,7 @@ export default class MessageVC extends React.Component {
        handler: () => this._goBack(),
      };
     var titleConfig = {
-      title: '消息',
+      title: 'CO2参考',
       tintColor:'#ffffff'
     };
     return(
@@ -95,15 +113,18 @@ var styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   row: {
-    flexDirection: 'column',
+    flexDirection: 'row',
      justifyContent: 'center',
-     padding: 10,
-     borderWidth: 1,
-     borderRadius: 5,
-     borderColor: '#CCC',
-     backgroundColor: '#F6F6F6',
      margin:5,
-     alignItems:'flex-start',
+     alignItems:'center',
+  },
+  row1:{
+    flex: 1,
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#CCC',
+    backgroundColor: '#F6F6F6',
   },
   thumb: {
     width: 45,

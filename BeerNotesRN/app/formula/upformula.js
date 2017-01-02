@@ -600,6 +600,7 @@ export default class UpFormulaVC extends React.Component {
             value={this.state.water+''}
             underlineColorAndroid="transparent"
           />
+          <Text style={styles.text2}>{'升'}</Text>
        </View>
      </View>
     )
