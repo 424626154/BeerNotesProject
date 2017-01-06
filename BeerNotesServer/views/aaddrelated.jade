@@ -1,0 +1,16 @@
+doctype html
+html
+	head
+		title 精酿笔记
+	body 
+	form(enctype="application/x-www-from-urlencoded", action="/admin/addrelated", method="post")
+		div
+			label 标题
+			input(id="title",name="title",placeholder="输入标题") 
+		div
+			label 简介
+			textarea(id="brief",name="brief",placeholder="输入简介")
+		div
+			label 链接
+			textarea(id="link",name="link",placeholder="输入链接")
+		button(type="submit") 添加

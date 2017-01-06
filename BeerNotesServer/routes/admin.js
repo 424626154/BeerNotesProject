@@ -27,24 +27,89 @@ router.get('/push', function(req, res, next) {
 });
 
 router.post('/push', function(req, res) {
-	console.log('is amdin/push post');
-	var title = req.body.title;
-	var content = req.body.content;
-	push_title = title;
-	push_content = content;
-	if (title.length > 0 && content.length > 0) {
-		bndb.queryAllToken('android', queryAllTokenCallback);
-		bndb.queryAllToken('ios', queryAllTokenCallback);
+		console.log('is amdin/push post');
+		var title = req.body.title;
+		var content = req.body.content;
+		push_title = title;
+		push_content = content;
+		if (title.length > 0 && content.length > 0) {
+			bndb.queryAllToken('android', queryAllTokenCallback);
+			bndb.queryAllToken('ios', queryAllTokenCallback);
+		}
+		// sendPush(title, content);
+		res.render('apush', {});
+	})
+	/*------admin/related------*/
+router.get('/related', function(req, res, next) {
+	console.log('is amdin/related get');
+	var op = req.query.op;
+	if (op == 'del') {
+		var rid = req.query.rid;
+		if (rid != undefined && rid.length > 0) {
+			bndb.deletOneRelated(rid, res, delOneRelatedCallback);
+			return;
+		}
 	}
-	// sendPush(title, content);
-	res.render('apush', {});
+	// res.render('arelated', {});
+	bndb.queryAllRelated(res, queryAllRelatedCallback);
+});
+
+router.post('/related', function(req, res) {
+	console.log('is amdin/related post');
+	res.render('arelated', {});
 })
+
+/*------admin/addrelated------*/
+router.get('/addrelated', function(req, res, next) {
+	console.log('is amdin/addrelated get');
+	console.log(req.body);
+	res.render('aaddrelated', {});
+});
+
+router.post('/addrelated', function(req, res) {
+	console.log('is amdin/addrelated post', req.body);
+	var title = req.body.title;
+	var brief = req.body.brief;
+	var link = req.body.link;
+	if (title.length > 0 & brief.length > 0 & link.length > 0) {
+		bndb.saveRelated(title, brief, link, res, addRelatedCallback);
+	} else {
+		res.render('aaddrelated', {});
+	}
+});
+/*****Callback******/
+
+function addRelatedCallback(code, docs, res) {
+	if (code == 0) {
+		res.redirect('/admin/related');
+	} else {
+		res.render('aaddrelated', {});
+	}
+}
 
 function queryAllTokenCallback(ostype, docs) {
 	// console.log(docs);
 	var tokens = assembleTokens(docs)
 	if (tokens.length > 0) {
 		sendPush(push_title, push_content, tokens, ostype);
+	}
+}
+
+function queryAllRelatedCallback(code, docs, res) {
+	// console.log(docs);
+	if (code == 0) {
+
+	}
+	res.render('arelated', {
+		objs: docs
+	});
+}
+
+function delOneRelatedCallback(code, res) {
+	if (code == 0) {
+		res.redirect('/admin/related');
+	} else {
+		res.render('arelated', {});
 	}
 }
 
@@ -58,7 +123,6 @@ function sendPush(title, content, tokens, ostype) {
 	// console.log(new Date().getTime());
 	var method = "POST";
 	var url = "http://msg.umeng.com/api/send";
-
 
 	// var ostype = "android";
 	// var ostype = "ios";

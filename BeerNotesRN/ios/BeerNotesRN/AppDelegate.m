@@ -39,7 +39,8 @@
 //  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 #if DEBUG
   // 原来的jsCodeLocation
-  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.103:8081/index.ios.bundle?platform=ios&dev=true"];
+  NSString *url = [NSString stringWithFormat:@"http://%@:8081/index.ios.bundle?platform=ios&dev=true",IP];
+  jsCodeLocation = [NSURL URLWithString:url];
 #else
   jsCodeLocation=[RCTHotUpdate bundleURL];
 #endif
@@ -192,7 +193,7 @@
 
 -(void)uploadToken:(NSString*)token
 {
-  NSString *URLString = @"http://192.168.1.103:3000/bnapp/uploadtoken";
+  NSString *URLString = [NSString stringWithFormat:@"http://%@:3000/bnapp/uploadtoken",IP];
   NSDictionary *param = @{@"token":token,@"ostype":@"ios"};
   AFHTTPSessionManager *manage = [AFHTTPSessionManager manager];
   //设置requestSerializer

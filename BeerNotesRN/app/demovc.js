@@ -13,6 +13,18 @@ export default class MeVC extends React.Component {
   _goBack(){
     this.props.nav.pop();
   }
+  constructor(props){
+    super(props);
+    this.state = {
+      demo:'',
+    }
+  }
+  componentDidMount() {
+
+  }
+  componentWillUnmount(){
+
+  }
   render(){
     const leftButtonConfig = {
        title: '返回',
@@ -34,3 +46,7 @@ export default class MeVC extends React.Component {
     );
   }
 }
+
+var styles = StyleSheet.create({
+
+});

@@ -1,0 +1,20 @@
+doctype html
+html(lang='en')
+  head
+    title 精酿笔记
+    script(type='text/javascript').
+      function del(rid){
+      	
+      }
+  body
+    a(href='/admin/addrelated') 添加相关资料
+    ul
+      -for(var i = 0 ;i < objs.length ; ++i)	{
+      li
+        div
+          a(href='#{objs[i].link}')
+            div #{objs[i].title}
+            div #{objs[i].brief}
+          a(href='/admin/related?op=del&rid=#{objs[i].rid}') 删除
+      -}
+

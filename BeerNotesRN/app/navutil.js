@@ -12,6 +12,12 @@ import BNFeedbackVC from './more/bnfeedbackvc';
 import MessageVC from './messagevc';
 import Co2VC from './co2/co2vc';
 import Co2ReferenceVC from './co2/co2referencevc';
+import LoginVC from './more/loginvc';
+import RegisterVC from './more/registervc';
+import ForgetVC from './more/forgetvc';
+import ModifyVC from './more/modifyvc';
+import RelatedVC from './related/relatedvc';
+import RelatedwebVC from './related/relatedwebvc';
 
 export default class NavUitl extends React.Component {
   static renderPage(route, nav) {
@@ -45,6 +51,24 @@ export default class NavUitl extends React.Component {
         break;
       case 'co2referencevc':
         return(<Co2ReferenceVC nav={nav}/>);
+        break;
+      case 'loginvc':
+        return(<LoginVC nav={nav}/>);
+        break;
+      case 'registervc':
+        return(<RegisterVC nav={nav}/>);
+        break;
+      case 'forgetvc':
+        return(<ForgetVC nav={nav}/>);
+        break;
+      case 'modifyvc':
+        return(<ModifyVC nav={nav}/>);
+        break;
+      case 'relatedvc':
+        return(<RelatedVC nav={nav}/>);
+        break;
+      case 'relatedwebvc':
+        return(<RelatedwebVC nav={nav} url={route.url}/>);
         break;
 		}
 	}

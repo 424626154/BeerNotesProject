@@ -203,7 +203,7 @@ public class MainApplication extends Application implements ReactApplication {
     Log.i("uplodaToken :",token);
     AsyncHttpClient client = new AsyncHttpClient(); // 创建异步请求的客户端对象
     client.addHeader("Accept","application/json");
-    String url = "http://192.168.1.103:3000/bnapp/uploadtoken"; // 定义请求的地址
+    String url = "/bnapp/uploadtoken"; // 定义请求的地址
     // 创建请求参数的封装的对象
     RequestParams params = new RequestParams();
     params.put("token", token); // 设置请求的参数名和参数值

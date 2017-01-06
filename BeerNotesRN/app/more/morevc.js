@@ -12,7 +12,9 @@ import {
   NativeModules,
   Platform,
   Alert,
-  Linking
+  Linking,
+  AsyncStorage,
+  DeviceEventEmitter,
 } from 'react-native';
 
 import {
@@ -24,7 +26,7 @@ import {
   downloadUpdate,
   switchVersion,
   switchVersionLater,
-  markSuccess,
+  markSuccess
 } from 'react-native-update';
 
 import NavigationBar from 'react-native-navbar';
@@ -33,6 +35,10 @@ import _updateConfig from '../../update.json';
 const {appKey} = _updateConfig[Platform.OS];
 
 var listData= [
+  {
+    text:'未登录',
+    img:require('../../resource/notlogin_head_normal.png')
+  },
   {
   text:'版本号 1.0.1',
   img:require('../../resource/version_normal.png')
@@ -48,17 +54,69 @@ export default class MoveVC extends React.Component {
   _goBack(){
     this.props.nav.pop();
   }
+  _goLogin(){
+    this.props.nav.push({
+      id:'loginvc',
+      name:'loginvc',
+    })
+  }
   _goIosFeedback(){
     this.props.nav.push({
       id:'bnfeedbcakvc',
       name:'bnfeedbcakvc',
     })
   }
+  _getUsername(){
+    var username = '';
+      AsyncStorage.getItem(
+         'username',
+         (error,result)=>{
+             if (error){
+                 alert('取值失败:'+error);
+             }else{
+                console.log("result",result)
+                if(result != null){
+                  username = result;
+                  this._renderUser(username);
+                }
+             }
+         }
+     )
+  }
+
+  _getAppVersion(){
+    if(Platform.OS === 'ios'){
+      AppManager.getAppVersion().then((datas)=> {
+              var item = listData[1];
+              item.text = '版本号 '+datas
+              this.setState({
+                dataSource: ds.cloneWithRows(listData),
+              })
+          }).catch((err)=> {
+              console.warn('err', err);
+          });
+    }else{
+      AppManager.getAppVersion(
+        (version) => {
+            var item = listData[0];
+            item.text = '版本号 '+version
+            this.setState({
+              dataSource: ds.cloneWithRows(listData),
+            })
+        },
+        (err) => {
+          console.warn('err', err);
+        }
+      );
+    }
+  }
   _pressRow(rowID){
     console.log(rowID);
     if(rowID == 0 ){
+      this._goLogin();
+    }else if(rowID == 1 ){
       this._checkUpdate();
-    }else if(rowID == 1){
+    }else if(rowID == 2){
       console.log(Platform.OS)
       if(Platform.OS === 'ios'){
         this._goIosFeedback();
@@ -67,33 +125,6 @@ export default class MoveVC extends React.Component {
       }
     }
    }
-   _getAppVersion(){
-     if(Platform.OS === 'ios'){
-       AppManager.getAppVersion().then((datas)=> {
-               var item = listData[0];
-               item.text = '版本号 '+datas
-               this.setState({
-                 dataSource: ds.cloneWithRows(listData),
-               })
-           }).catch((err)=> {
-               console.warn('err', err);
-           });
-     }else{
-       AppManager.getAppVersion(
-         (version) => {
-             var item = listData[0];
-             item.text = '版本号 '+version
-             this.setState({
-               dataSource: ds.cloneWithRows(listData),
-             })
-         },
-         (err) => {
-           console.warn('err', err);
-         }
-       );
-     }
-   }
-
    _checkUpdate() {
      checkUpdate(appKey).then(info => {
        console.log("info---",info)
@@ -114,6 +145,35 @@ export default class MoveVC extends React.Component {
           console.log("err---",err)
         });
    };
+   _modify(){
+     this.props.nav.push({
+       id:'modifyvc',
+       name:'modifyvc',
+     })
+   }
+  _Signout(){
+    AsyncStorage.removeItem(
+              'session',
+              (error)=>{
+                  if(!error){
+                      // alert('移除session成功');
+                  }
+              }
+          )
+    AsyncStorage.removeItem(
+        'username',
+        (error)=>{
+            if(!error){
+                // alert('移除username成功');
+            }
+        }
+      )
+      this._renderUser('');
+  }
+  _refesh_user(){
+    this._getUsername();
+  }
+
    doUpdate = info => {
        downloadUpdate(info).then(hash => {
          Alert.alert('提示', '下载完毕,是否重启应用?', [
@@ -125,7 +185,22 @@ export default class MoveVC extends React.Component {
          Alert.alert('提示', '更新失败.');
        });
    };
-
+   _renderUser(userneme){
+     console.log('_renderUser',userneme);
+    var item = listData[0];
+     if(userneme == ''){
+       item.text = '未登录';
+       item.img = require('../../resource/notlogin_head_normal.png');
+     }else{
+       item.text = userneme;
+       item.img = require('../../resource/login_head_normal.png');
+     }
+     console.log(item);
+     this.setState({
+       dataSource: ds.cloneWithRows(listData),
+       username:userneme
+     })
+   }
    _renderRow(rowData, sectionID, rowID){
        return (
            <TouchableOpacity onPress={()=>this._pressRow(rowID)}>
@@ -140,20 +215,54 @@ export default class MoveVC extends React.Component {
            </TouchableOpacity>
            );
      }
+
+     _renderSignout(){
+       console.log('_renderSignout',this.state.username)
+       if(this.state.username == ''){
+         return(
+            <View></View>
+         )
+       }else{
+         return(
+          <View style={styles.signout}>
+           <TouchableOpacity onPress={()=>this._modify()}>
+             <View style={styles.row}>
+               <Text style={styles.text}>
+                 {'修改密码'}
+               </Text>
+             </View>
+           </TouchableOpacity>
+           <TouchableOpacity onPress={()=>this._Signout()}>
+             <View style={styles.row}>
+               <Text style={styles.text}>
+                 {'退出登录'}
+               </Text>
+             </View>
+           </TouchableOpacity>
+          </View>
+         )
+       }
+     }
   constructor(props){
     super(props);
     this._renderRow = this._renderRow.bind(this);
     this._checkUpdate = this._checkUpdate.bind(this);
+    this._renderUser = this._renderUser.bind(this);
+    this._refesh_user = this._refesh_user.bind(this);
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(listData),
+      username:'',
     };
   }
   componentDidMount() {
     this._getAppVersion();
+    this._getUsername();
+    this.subscription = DeviceEventEmitter.addListener('loginSuccess',this._refesh_user);
+    this.subscription = DeviceEventEmitter.addListener('registerSuccess',this._refesh_user);
   }
   componentWillUnmount(){
-
+      this.subscription.remove();
   }
   render(){
     const leftButtonConfig = {
@@ -176,6 +285,7 @@ export default class MoveVC extends React.Component {
           dataSource={this.state.dataSource}
           renderRow={this._renderRow.bind(this)}
         />
+        {this._renderSignout()}
       </View >
     );
   }
@@ -186,7 +296,7 @@ var styles = StyleSheet.create({
     marginTop:5,
     justifyContent: 'space-around',
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   row: {
     flexDirection: 'row',
@@ -209,4 +319,7 @@ var styles = StyleSheet.create({
     textAlign:'left',
     fontWeight: 'bold'
   },
+  signout:{
+    height:120,
+  }
 });

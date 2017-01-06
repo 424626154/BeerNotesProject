@@ -48,6 +48,10 @@ var listData= [
   img:require('../resource/co2_normal.png')
   },
   {
+    text:'相关资料',
+    img:require('../resource/related_normal.png')
+  },
+  {
   text:'消息',
   img:require('../resource/message_normal.png')
   },
@@ -80,6 +84,12 @@ export default class HomeVC extends React.Component {
         name:'co2vc'
       })
     }
+    _goRelated(){
+      this.props.nav.push({
+        id:'relatedvc',
+        name:'relatedvc'
+      })
+    }
     _goMessageVC(){
       this.props.nav.push({
         id:'messagevc',
@@ -101,8 +111,10 @@ export default class HomeVC extends React.Component {
       }else if(rowID == 2){
         this._goCo2VC();
       }else if(rowID == 3){
-        this._goMessageVC();
+        this._goRelated();
       }else if(rowID == 4){
+        this._goMessageVC();
+      }else if(rowID == 5){
         this._goMorevc();
       }
     }
