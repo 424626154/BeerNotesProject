@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 const entrance = 'homevc';
 // const entrance = 'addformulavc';
 // const entrance = 'morevc';
-const ip = "192.168.1.104";
+const ip = "192.168.1.6";
 
 export default class BNConfig extends Component {
   static getEntrance(){

@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
 import NetUitl from "../netutil";
+import StorageUitl from '../storageutil'
 
 export default class ModifyVC extends React.Component {
   _goBack(){
@@ -48,19 +49,11 @@ export default class ModifyVC extends React.Component {
       return;
     }
     let data={'username':username,'password':this.state.password,'newpass':this.state.newpass};
-    let url = "/bnapp/modify";
+    let url = "/app/modify";
     NetUitl.postJson(url,data,function (set){
         switch (set.errcode) {
           case 0:
-            AsyncStorage.setItem(
-                 'session',
-                 set.data,
-                 (error)=>{
-                     if (error){
-                         alert('保存session失败:',error);
-                     }
-                 }
-             );
+            StorageUitl.saveModify(set.data)
             reg._goBack();
             break;
           default:

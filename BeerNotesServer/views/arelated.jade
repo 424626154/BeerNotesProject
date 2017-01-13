@@ -1,12 +1,5 @@
-doctype html
-html(lang='en')
-  head
-    title 精酿笔记
-    script(type='text/javascript').
-      function del(rid){
-      	
-      }
-  body
+extends header
+block content
     a(href='/admin/addrelated') 添加相关资料
     ul
       -for(var i = 0 ;i < objs.length ; ++i)	{

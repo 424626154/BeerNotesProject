@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 import NetUitl from "../netutil";
+import StorageUitl from '../storageutil'
 
 import {
   AppRegistry,
@@ -38,11 +39,12 @@ export default class RegisterVC extends React.Component {
       return;
     }
     		let data={'username':this.state.username,'password':this.state.password,'email':this.state.email};
-    		let url = "/bnapp/register"
+    		let url = "/app/register"
     		NetUitl.postJson(url,data,function (set){
     				switch (set.errcode) {
     					case 0:
-              DeviceEventEmitter.emit('registerSuccess');
+                StorageUitl.saveRegister(set.data)
+                DeviceEventEmitter.emit('registerSuccess');
     						reg._goBack();
     						break;
     					default:

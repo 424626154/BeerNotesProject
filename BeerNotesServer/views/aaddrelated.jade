@@ -1,8 +1,5 @@
-doctype html
-html
-	head
-		title 精酿笔记
-	body 
+extends header
+block content
 	form(enctype="application/x-www-from-urlencoded", action="/admin/addrelated", method="post")
 		div
 			label 标题

@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 import NetUitl from "../netutil";
+import StorageUitl from '../storageutil'
 
 import {
   AppRegistry,
@@ -31,29 +32,12 @@ export default class LoginVC extends React.Component {
       return;
     }
     		let data={'username':this.state.username,'password':this.state.password};
-    		let url = "/bnapp/login"
+    		let url = "/app/login"
         var username = this.state.username;
     		NetUitl.postJson(url,data,function (set){
     				switch (set.errcode) {
     					case 0:
-              AsyncStorage.setItem(
-                   'session',
-                   set.data,
-                   (error)=>{
-                       if (error){
-                           alert('保存session失败:',error);
-                       }
-                   }
-               );
-               AsyncStorage.setItem(
-                    'username',
-                    username,
-                    (error)=>{
-                        if (error){
-                            alert('保存username失败:',error);
-                        }
-                    }
-                );
+                StorageUitl.saveLogin(set.data)
                 DeviceEventEmitter.emit('loginSuccess');
     						reg._goBack();
     						break;

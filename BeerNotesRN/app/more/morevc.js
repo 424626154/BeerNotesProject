@@ -31,6 +31,8 @@ import {
 
 import NavigationBar from 'react-native-navbar';
 
+import StorageUitl from '../storageutil'
+
 import _updateConfig from '../../update.json';
 const {appKey} = _updateConfig[Platform.OS];
 
@@ -68,22 +70,12 @@ export default class MoveVC extends React.Component {
   }
   _getUsername(){
     var username = '';
-      AsyncStorage.getItem(
-         'username',
-         (error,result)=>{
-             if (error){
-                 alert('取值失败:'+error);
-             }else{
-                console.log("result",result)
-                if(result != null){
-                  username = result;
-                  this._renderUser(username);
-                }
-             }
-         }
-     )
+    StorageUitl.getUserName(this._getUserNameCallback)
   }
 
+  _getUserNameCallback(username){
+        this._renderUser(username);
+  }
   _getAppVersion(){
     if(Platform.OS === 'ios'){
       AppManager.getAppVersion().then((datas)=> {
@@ -249,6 +241,7 @@ export default class MoveVC extends React.Component {
     this._checkUpdate = this._checkUpdate.bind(this);
     this._renderUser = this._renderUser.bind(this);
     this._refesh_user = this._refesh_user.bind(this);
+    this._getUserNameCallback = this._getUserNameCallback.bind(this);
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(listData),

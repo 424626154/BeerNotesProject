@@ -14,7 +14,7 @@ class NetUitl extends React.Component {
   *callback:回调函数
   */
   static  postFrom(url, data, callback) {
-      url = "http://"+BNConfig.getIP()+":3000"+url;
+      url = "http://"+BNConfig.getIP()+":5000"+url;
       var fetchOptions = {
         method: 'POST',
         headers: {
@@ -36,7 +36,7 @@ class NetUitl extends React.Component {
   *callback:回调函数
   */
 static postJson (url, data, callback) {
-  url = "http://"+BNConfig.getIP()+":3000"+url;
+  url = "http://"+BNConfig.getIP()+":5000"+url;
   console.log("url:",url);
     var fetchOptions = {
       method: 'POST',

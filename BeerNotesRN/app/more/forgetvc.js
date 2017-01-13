@@ -25,7 +25,7 @@ export default class ForgetVC extends React.Component {
       return;
     }
     		let data={'email':this.state.email};
-    		let url = "/bnapp/email"
+    		let url = "/app/email"
     		NetUitl.postJson(url,data,function (set){
     				switch (set.errcode) {
     					case 0:

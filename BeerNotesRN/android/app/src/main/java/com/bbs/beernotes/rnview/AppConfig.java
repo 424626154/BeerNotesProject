@@ -10,4 +10,6 @@ public class AppConfig {
      public static final boolean isCrashEnable = true;
      public static final String Umeng_channelId = "h_android";
      public static final String Umeng_appkey = "5846ec8eae1bf8125b000d7d";
+     public static final String IP = "192.168.1.6";
+     public static final int HOST = 5000;
 }
