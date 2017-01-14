@@ -44,8 +44,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.bbs.beernotes.rnview.AppConfig.Bugly_KEY;
-import static com.bbs.beernotes.rnview.AppConfig.HOST;
+import static com.bbs.beernotes.rnview.AppConfig.*;
 import static com.bbs.beernotes.rnview.AppConfig.Umeng_appkey;
 import static com.bbs.beernotes.rnview.AppConfig.Umeng_channelId;
 import static com.bbs.beernotes.rnview.AppConfig.isCrashEnable;
@@ -204,7 +203,12 @@ public class MainApplication extends Application implements ReactApplication {
     Log.i("uplodaToken :",token);
     AsyncHttpClient client = new AsyncHttpClient(); // 创建异步请求的客户端对象
     client.addHeader("Accept","application/json");
-    String url = AppConfig.IP+":"+HOST+"/app/uploadtoken"; // 定义请求的地址
+    String url = "";
+    if(ISDEBUG){
+      url =  DEBUG_IP+":"+HOST+"/app/uploadtoken"; // 定义请求的地址
+    }else{
+      url = IP+":"+HOST+"/app/uploadtoken"; // 定义请求的地址
+    }
     // 创建请求参数的封装的对象
     RequestParams params = new RequestParams();
     params.put("token", token); // 设置请求的参数名和参数值

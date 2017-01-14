@@ -125,6 +125,33 @@ class StorageUitl extends React.Component {
        }
    )
   }
+
+  static signout(){
+          AsyncStorage.removeItem(
+                    TOKEN,
+                    (error)=>{
+                        if(!error){
+                            // alert('移除session成功');
+                        }
+                    }
+                )
+          AsyncStorage.removeItem(
+                    SECRET,
+                    (error)=>{
+                        if(!error){
+                            // alert('移除session成功');
+                        }
+                    }
+                )
+        AsyncStorage.removeItem(
+            USERNAME,
+            (error)=>{
+                if(!error){
+                    // alert('移除username成功');
+                }
+            }
+          )
+      }
 }
 
 module.exports = StorageUitl;

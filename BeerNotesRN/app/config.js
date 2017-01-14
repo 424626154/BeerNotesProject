@@ -6,13 +6,18 @@ import React, { Component } from 'react';
 const entrance = 'homevc';
 // const entrance = 'addformulavc';
 // const entrance = 'morevc';
-const ip = "192.168.1.6";
-
+const isdebug = false;
+const ip = "182.92.167.29";
+const debug_id = "192.168.1.6";
 export default class BNConfig extends Component {
   static getEntrance(){
     return entrance;
   }
   static getIP(){
-    return ip;
+    if(isdebug){
+          return debug_id;
+    }else{
+          return ip;
+    }
   }
 }

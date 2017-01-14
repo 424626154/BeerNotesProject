@@ -68,7 +68,7 @@ export default class NavUitl extends React.Component {
         return(<RelatedVC nav={nav}/>);
         break;
       case 'relatedwebvc':
-        return(<RelatedwebVC nav={nav} url={route.url}/>);
+        return(<RelatedwebVC nav={nav} url={route.url} rname={route.rname}/>);
         break;
 		}
 	}

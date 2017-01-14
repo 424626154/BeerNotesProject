@@ -193,7 +193,13 @@
 
 -(void)uploadToken:(NSString*)token
 {
-  NSString *URLString = [NSString stringWithFormat:@"http://%@:5000/app/uploadtoken",IP];
+  NSString *URLString = @"";
+  if(ISDEBUG == YES){
+    URLString = [NSString stringWithFormat:@"http://%@:5000/app/uploadtoken",IP];
+  }else{
+    URLString = [NSString stringWithFormat:@"http://%@:5000/app/uploadtoken",IP];
+  }
+
   NSDictionary *param = @{@"token":token,@"ostype":@"ios"};
   AFHTTPSessionManager *manage = [AFHTTPSessionManager manager];
   //设置requestSerializer

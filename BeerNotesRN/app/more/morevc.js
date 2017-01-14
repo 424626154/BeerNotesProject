@@ -90,7 +90,7 @@ export default class MoveVC extends React.Component {
     }else{
       AppManager.getAppVersion(
         (version) => {
-            var item = listData[0];
+            var item = listData[1];
             item.text = '版本号 '+version
             this.setState({
               dataSource: ds.cloneWithRows(listData),
@@ -144,22 +144,7 @@ export default class MoveVC extends React.Component {
      })
    }
   _Signout(){
-    AsyncStorage.removeItem(
-              'session',
-              (error)=>{
-                  if(!error){
-                      // alert('移除session成功');
-                  }
-              }
-          )
-    AsyncStorage.removeItem(
-        'username',
-        (error)=>{
-            if(!error){
-                // alert('移除username成功');
-            }
-        }
-      )
+      StorageUitl.signout()
       this._renderUser('');
   }
   _refesh_user(){

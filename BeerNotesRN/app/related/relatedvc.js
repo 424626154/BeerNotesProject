@@ -21,11 +21,12 @@ export default class RelatedVC extends React.Component {
   _goBack(){
     this.props.nav.pop();
   }
-  _goRelatedweb(url){
+  _goRelatedweb(data){
     this.props.nav.push({
       id:'relatedwebvc',
       name:'relatedwebvc',
-      url:url
+      rname:data.Name,
+      url:data.Link
     })
   }
   _queryRelated(){
@@ -35,11 +36,13 @@ export default class RelatedVC extends React.Component {
     NetUitl.postJson(url,data,function (set){
         switch (set.errcode) {
           case 0:
-          // console.log("data:",set.data);
-            listData = JSON.parse(set.data);
-            tag.setState({
-              dataSource: ds.cloneWithRows(listData)
-            })
+            console.log("data:",set.data);
+            if(set.data != null){
+                listData = JSON.parse(set.data);
+                tag.setState({
+                  dataSource: ds.cloneWithRows(listData)
+                })
+            }
             break;
           default:
             Alert.alert(set.errmsg);
@@ -48,7 +51,7 @@ export default class RelatedVC extends React.Component {
       });
   }
   _pressRow(rowID){
-    this._goRelatedweb(listData[rowID].Link);
+    this._goRelatedweb(listData[rowID]);
    }
   constructor(props){
     super(props);

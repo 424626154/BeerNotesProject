@@ -22,20 +22,7 @@ export default class ModifyVC extends React.Component {
   }
   _modify(){
     var username = '';
-      AsyncStorage.getItem(
-         'username',
-         (error,result)=>{
-             if (error){
-                 alert('取值失败:'+error);
-             }else{
-                console.log("result",result)
-                if(result != null){
-                  username = result;
-                  this._sendModify(username);
-                }
-             }
-         }
-     )
+    aa
   }
 
   _sendModify(username){

@@ -17,11 +17,13 @@ export default class RelatedwebVC extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      rname:"相关资料",
       url:default_html,
     }
   }
   componentDidMount() {
     this.setState({
+            rname:this.props.name,
     	 			url : this.props.url
     	 	})
   }
@@ -35,7 +37,7 @@ export default class RelatedwebVC extends React.Component {
        handler: () => this._goBack(),
      };
     var titleConfig = {
-      title: '相关记录',
+      title: this.state.rname,
       tintColor:'#ffffff'
     };
     return(
