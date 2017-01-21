@@ -23,7 +23,7 @@ export default class RelatedwebVC extends React.Component {
   }
   componentDidMount() {
     this.setState({
-            rname:this.props.name,
+            rname:this.props.rname,
     	 			url : this.props.url
     	 	})
   }
