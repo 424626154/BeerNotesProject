@@ -83,6 +83,16 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
+
+    signingConfigs {
+        release {
+            keyAlias 'beernotes'
+            keyPassword 'sbb0503'
+            storePassword 'sbb0503'
+            storeFile file('/Users/bingbing/BeerNotesProject/BeerNotesRN/android/jks/beernotes.jks')
+        }
+    }
+
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
@@ -108,6 +118,10 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     sourceSets{

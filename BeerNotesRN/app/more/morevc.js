@@ -30,8 +30,8 @@ import {
 } from 'react-native-update';
 
 import NavigationBar from 'react-native-navbar';
-
-import StorageUitl from '../storageutil'
+import StorageUitl from '../storageutil';
+let globaldata = require('../globaldata');
 
 import _updateConfig from '../../update.json';
 const {appKey} = _updateConfig[Platform.OS];
@@ -68,13 +68,12 @@ export default class MoveVC extends React.Component {
       name:'bnfeedbcakvc',
     })
   }
-  _getUsername(){
-    var username = '';
-    StorageUitl.getUserName(this._getUserNameCallback)
+  _getUser(){
+    StorageUitl.getUser(this._getUserCallback)
   }
 
-  _getUserNameCallback(username){
-        this._renderUser(username);
+  _getUserCallback(user){
+        this._renderUser(user);
   }
   _getAppVersion(){
     if(Platform.OS === 'ios'){
@@ -107,7 +106,7 @@ export default class MoveVC extends React.Component {
     if(rowID == 0 ){
       this._goLogin();
     }else if(rowID == 1 ){
-      this._checkUpdate();
+      // this._checkUpdate();
     }else if(rowID == 2){
       console.log(Platform.OS)
       if(Platform.OS === 'ios'){
@@ -144,11 +143,13 @@ export default class MoveVC extends React.Component {
      })
    }
   _Signout(){
-      StorageUitl.signout()
-      this._renderUser('');
+      StorageUitl.removeUser();
+      this._renderUser(null);
+      globaldata.username = '';
+      globaldata.token = '';
   }
   _refesh_user(){
-    this._getUsername();
+    this._getUser();
   }
 
    doUpdate = info => {
@@ -162,20 +163,23 @@ export default class MoveVC extends React.Component {
          Alert.alert('提示', '更新失败.');
        });
    };
-   _renderUser(userneme){
-     console.log('_renderUser',userneme);
-    var item = listData[0];
-     if(userneme == ''){
+   _renderUser(user){
+     var username = ""
+     console.log('_renderUser',user);
+      var item = listData[0];
+     if(user != null &&user.Username != ''){
+       console.log('_renderUser user.Username',user.Username);
+       username = user.Username;
+       item.text = username;
+       item.img = require('../../resource/login_head_normal.png');
+     }else{
        item.text = '未登录';
        item.img = require('../../resource/notlogin_head_normal.png');
-     }else{
-       item.text = userneme;
-       item.img = require('../../resource/login_head_normal.png');
      }
      console.log(item);
      this.setState({
        dataSource: ds.cloneWithRows(listData),
-       username:userneme
+       username:username
      })
    }
    _renderRow(rowData, sectionID, rowID){
@@ -226,7 +230,7 @@ export default class MoveVC extends React.Component {
     this._checkUpdate = this._checkUpdate.bind(this);
     this._renderUser = this._renderUser.bind(this);
     this._refesh_user = this._refesh_user.bind(this);
-    this._getUserNameCallback = this._getUserNameCallback.bind(this);
+    this._getUserCallback = this._getUserCallback.bind(this);
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(listData),
@@ -235,7 +239,7 @@ export default class MoveVC extends React.Component {
   }
   componentDidMount() {
     this._getAppVersion();
-    this._getUsername();
+    this._getUser();
     this.subscription = DeviceEventEmitter.addListener('loginSuccess',this._refesh_user);
     this.subscription = DeviceEventEmitter.addListener('registerSuccess',this._refesh_user);
   }

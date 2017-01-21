@@ -19,10 +19,18 @@ export default class MessageVC extends React.Component {
   _goBack(){
     this.props.nav.pop();
   }
+  _onEmpty(){
+    sqlHelper.deleteAllMessageDB(this._queryCllback)
+  }
   _queryCllback(errocode,messages){
+    var reg = this;
     console.log('_queryCllback',errocode,messages);
     if(errocode == 0){
           listData = messages;
+          console.log(listData)
+          reg.setState({
+            dataSource: ds.cloneWithRows(listData),
+          })
     }
   }
   _query(){
@@ -32,6 +40,7 @@ export default class MessageVC extends React.Component {
     console.log(rowID);
    }
   _renderRow(rowData, sectionID, rowID){
+    console.log(rowData)
       return (
           <TouchableOpacity onPress={()=>this._pressRow(rowID)}>
           <View >
@@ -49,6 +58,7 @@ export default class MessageVC extends React.Component {
     }
     constructor(props){
       super(props);
+      this._queryCllback = this._queryCllback.bind(this);
       ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.state = {
         dataSource: ds.cloneWithRows(listData),
@@ -67,6 +77,11 @@ export default class MessageVC extends React.Component {
        tintColor:'#ffffff',
        handler: () => this._goBack(),
      };
+     const rightButtonConfig = {
+      title: '清空',
+      tintColor:'#ffffff',
+      handler:() => this._onEmpty(),
+    };
     var titleConfig = {
       title: '消息',
       tintColor:'#ffffff'
@@ -75,6 +90,7 @@ export default class MessageVC extends React.Component {
       <View style={{flex: 1}}>
       <NavigationBar
         leftButton={leftButtonConfig}
+        rightButton={rightButtonConfig}
         tintColor={'#34495e'}
         title={titleConfig} />
         <ListView

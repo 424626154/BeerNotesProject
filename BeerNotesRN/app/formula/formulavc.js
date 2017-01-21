@@ -9,12 +9,18 @@ import {
   Image,
   ListView,
   TouchableOpacity,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  Platform,
+  Alert,
+  AlertIOS
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
 import Spinner from 'react-native-loading-spinner-overlay';
 import SqlHelper from '../db/sqlhelper';
 import BNUtil from '../bnutil';
+import NetUitl from "../netutil";
+import StorageUitl from '../storageutil';
+let globaldata = require('../globaldata');
 
 var fData = [];
 // var vc ;
@@ -35,6 +41,7 @@ var hops_img =  require('../../resource/hops_normal.png');
 var yeast_img = require('../../resource/yeast_normal.png');
 var liao_img = require('../../resource/liao_normal.png');
 var add_img = require('../../resource/add_formula_normal.png');
+var upcloud_img = require('../../resource/upcloud_normal.png');
 
 export default class FormulaVC extends React.Component {
   _goBack(){
@@ -57,6 +64,24 @@ export default class FormulaVC extends React.Component {
       }
     })
   }
+  //上传到云服务器
+  _upCloud(rowID){
+    var obj = fData[rowID];
+    let data={'token':this.state.token,'fid':obj.fid,'fname':obj.fname,'malts':obj.malts,'hopss':obj.hopss,'yeasts':obj.yeasts,'water':obj.water,'accessoriess':obj.accessoriess};
+    let url = "/app/addformula"
+    console.log(data)
+    NetUitl.postJson(url,data,function (set){
+        switch (set.errcode) {
+          case 0:
+            Alert.alert("发布配方成功");
+            break;
+          default:
+            Alert.alert(set.errmsg);
+            break;
+        }
+      });
+  }
+
   _refesh(){
     this._query();
   }
@@ -111,6 +136,46 @@ export default class FormulaVC extends React.Component {
      var rowid = fData[rowID].fid;//.rowid;
      sqlHelper.deleteFormulaDB(rowid,this._deleteCllback);
    }
+   //上传到云
+   _upCloudRow(rowID){
+     if(globaldata.username == ""){
+       Alert.alert(
+             "账户未登录",
+             "登录后才可以发布配方",
+            [
+              {text: '确定', onPress: () =>{}}
+            ]
+          )
+          return;
+     }
+     var alertTitle = "发布配方";
+     var alertMessage = "是否发布配方到配方大厅";
+     Alert.alert(
+           alertTitle,
+           alertMessage,
+          [
+            {text: '放弃', onPress: () =>{}},
+            {text: '发布', onPress: () =>{
+              this._upCloud(rowID);
+            }},
+          ]
+        )
+   }
+   _getUser(){
+     StorageUitl.getUser(this._getUserCallback)
+   }
+
+   _getUserCallback(user){
+     if(user != null &&user.Username != ''){
+       var username = user.Username;
+       var token = user.Token
+       this.setState({
+         username:username,
+         token:token,
+       })
+     }
+   }
+
    _pressRow(rowID){
      console.log(rowID);
     }
@@ -156,6 +221,11 @@ export default class FormulaVC extends React.Component {
               {/* 删除 */}
               <TouchableOpacity onPress={()=>this._delRow(rowID)}>
               <Image style={styles.thumb} source={delete_img}/>
+              </TouchableOpacity>
+              <View style={styles.row_iv}></View>
+              {/* 上传到云 */}
+              <TouchableOpacity onPress={()=>this._upCloudRow(rowID)}>
+              <Image style={styles.thumb} source={upcloud_img}/>
               </TouchableOpacity>
               </View>
 
@@ -323,6 +393,8 @@ export default class FormulaVC extends React.Component {
     this._queryCllback = this._queryCllback.bind(this);
     this._refesh = this._refesh.bind(this);
     this._deleteCllback = this._deleteCllback.bind(this);
+    this._getUser = this._getUser.bind(this);
+    this._getUserCallback = this._getUserCallback.bind(this);
 
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     maltsds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -331,13 +403,16 @@ export default class FormulaVC extends React.Component {
     accessoriessds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(fData),
-      visible: true
+      visible: true,
+      username:"",
+      token:"",
     };
   }
   componentDidMount() {
       sqlHelper = new SqlHelper();
       this.subscription = DeviceEventEmitter.addListener('refesh',this._refesh);
       this._query();
+      this._getUser();
   }
   componentWillUnmount(){
       this.subscription.remove();

@@ -21,10 +21,16 @@ export default class ModifyVC extends React.Component {
     this.props.nav.pop();
   }
   _modify(){
-    var username = '';
-    aa
+    StorageUitl.getUser(this._getUserCallback)
   }
-
+  _getUserCallback(user){
+    if(user != null &&user.Username != ''){
+      var username = user.Username;
+      this._sendModify(username)
+    }else{
+      Alert.alert('登录信息失效');
+    }
+  }
   _sendModify(username){
     let reg = this;
     if(this.state.password == ''){
@@ -40,7 +46,7 @@ export default class ModifyVC extends React.Component {
     NetUitl.postJson(url,data,function (set){
         switch (set.errcode) {
           case 0:
-            StorageUitl.saveModify(set.data)
+            StorageUitl.saveUser(set.data)
             reg._goBack();
             break;
           default:
@@ -52,6 +58,8 @@ export default class ModifyVC extends React.Component {
 
   constructor(props){
     super(props);
+    this._getUserCallback = this._getUserCallback.bind(this);
+    this._sendModify = this._sendModify.bind(this);
     this.state = {
       password:'',
       newpass:'',

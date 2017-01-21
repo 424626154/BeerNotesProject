@@ -174,7 +174,7 @@ export default class SqlHelper
           title:  title,
           content:text
         });
-        if (typeof callback === "function") {
+        if (typeof callback == "function") {
           console.log("---brsql--- 插入消息:",message,message.fid)
           callback(success_code,message.mid)
         }
@@ -187,7 +187,7 @@ export default class SqlHelper
       realm.write(() => {
         var messages = realm.objects(MessageTable)
         if (typeof callback === "function") {
-          console.log('---brsql---  查询全部消息:',messages,messages.length)
+          console.log('---brsql---  查询全部消息:',messages.length)
           callback(success_code,messages)
         }
       });
@@ -204,6 +204,16 @@ export default class SqlHelper
         if (typeof callback === "function") {
           console.log('---brsql---  删除单个消息:',rowid);
           callback(success_code,rowid);
+        }
+      });
+    }
+    deleteAllMessageDB(callback){
+      realm.write(() => {
+        var messages=realm.objects(MessageTable);
+        realm.delete(messages);
+        if (typeof callback === "function") {
+          console.log('---brsql---  删除所有消息:');
+          callback(success_code,0);
         }
       });
     }

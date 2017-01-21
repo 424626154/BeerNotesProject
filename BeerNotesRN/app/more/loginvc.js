@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import NetUitl from "../netutil";
 import StorageUitl from '../storageutil'
-
+let globaldata = require('../globaldata');
 import {
   AppRegistry,
   StyleSheet,
@@ -37,7 +37,12 @@ export default class LoginVC extends React.Component {
     		NetUitl.postJson(url,data,function (set){
     				switch (set.errcode) {
     					case 0:
-                StorageUitl.saveLogin(set.data)
+                StorageUitl.saveUser(set.data)
+                var user = JSON.parse(set.data)
+                var username = user.Username;
+                var token = user.Token;
+                globaldata.username = username;
+                globaldata.token = token;
                 DeviceEventEmitter.emit('loginSuccess');
     						reg._goBack();
     						break;

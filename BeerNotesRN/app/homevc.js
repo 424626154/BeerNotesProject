@@ -1,5 +1,6 @@
 'use strict'
 import React, { Component } from 'react';
+let globaldata = require('./globaldata');
 
 import {
   AppRegistry,
@@ -30,11 +31,20 @@ import {
 
 import NavigationBar from 'react-native-navbar';
 import SqlHelper from './db/sqlhelper';
-
+import StorageUitl from './storageutil';
+import NetUitl from "./netutil";
 import _updateConfig from '../update.json';
 const {appKey} = _updateConfig[Platform.OS];
 
 var listData= [
+  // {
+  // text:'初识精酿',
+  // img:require('../resource/knowbrew_normal.png')
+  // },
+  {
+  text:'共享配方',
+  img:require('../resource/fname_normal.png')
+  },
   {
   text:'我的配方',
   img:require('../resource/fname_normal.png')
@@ -64,6 +74,18 @@ var ds = null;
 var sqlHelper;
 var subscription;
 export default class HomeVC extends React.Component {
+    _goKnowBrew(){
+      this.props.nav.push({
+        id:'knowbrewvc',
+        name:'knowbrewvc'
+      })
+    }
+    _goCloudFormulaVC(){
+      this.props.nav.push({
+        id:'cloudformulavc',
+        name:'cloudformulavc'
+      })
+    }
     // 进入配方
     _goFormulaVC(){
       this.props.nav.push({
@@ -86,8 +108,8 @@ export default class HomeVC extends React.Component {
     }
     _goRelated(){
       this.props.nav.push({
-        id:'relatedvc',
-        name:'relatedvc'
+        id:'relatedtablevc',
+        name:'relatedtablevc'
       })
     }
     _goMessageVC(){
@@ -103,21 +125,77 @@ export default class HomeVC extends React.Component {
         name:'morevc'
       })
     }
+    _getUser(){
+      StorageUitl.getUser(this._getUserCallback)
+    }
+
+    _getUserCallback(user){
+      var reg = this;
+      console.log(reg);
+      if(user != null &&user.Username != ''){
+        var username = user.Username;
+        var token = user.Token
+        globaldata.username = username;
+        globaldata.token = token;
+        reg._queryMessage();
+      }
+      console.log("globaldata:",globaldata)
+    }
     _pressRow(rowID){
-      if(rowID == 0 ){
-        this._goFormulaVC();
+      // if(rowID == 0){
+      //   this._goKnowBrew();
+      // }else
+      if(rowID == 0){
+        this._goCloudFormulaVC();
       }else if(rowID == 1){
-        this._goAlcoholDegreeVC();
+        this._goFormulaVC();
       }else if(rowID == 2){
-        this._goCo2VC();
+        this._goAlcoholDegreeVC();
       }else if(rowID == 3){
-        this._goRelated();
+        this._goCo2VC();
       }else if(rowID == 4){
-        this._goMessageVC();
+        this._goRelated();
       }else if(rowID == 5){
+        this._goMessageVC();
+      }else if(rowID == 6){
         this._goMorevc();
       }
     }
+    _queryMessage(){
+      console.log("queryMessage:",globaldata.token)
+      if(globaldata.token == ''){
+        return;
+      }
+      var reg = this;
+      let data={'token':globaldata.token};
+      let url = "/app/getmessage"
+      console.log(data)
+      NetUitl.postJson(url,data,function (set){
+          switch (set.errcode) {
+            case 0:
+              reg._queryMessageCallback(set.data);
+              break;
+            default:
+              Alert.alert(set.errmsg);
+              break;
+          }
+        });
+    }
+
+    _queryMessageCallback(data){
+      console.log("_queryMessageCallback:",data)
+      var objs = JSON.parse(data);
+      if(objs != null){
+        for (var i = 0; i < objs.length; i++) {
+          sqlHelper.insertMessageDB(objs[i].Title,objs[i].Content,this._insertMessageCallback);
+        }
+      }
+    }
+
+    _insertMessageCallback(code,mid){
+
+    }
+
     _renderRow(rowData, sectionID, rowID){
       return(
         <TouchableOpacity onPress={()=>this._pressRow(rowID)}>
@@ -148,6 +226,9 @@ export default class HomeVC extends React.Component {
     constructor(props){
       super(props);
       this._renderRow = this._renderRow.bind(this);
+      this._getUser = this._getUser.bind(this);
+      this._getUserCallback = this._getUserCallback.bind(this);
+      this._queryMessage = this._queryMessage.bind(this);
       ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.state = {
         dataSource: ds.cloneWithRows(listData),
@@ -155,12 +236,14 @@ export default class HomeVC extends React.Component {
       // console.log("appKey:",appKey);
       this._initUpdate();
       sqlHelper = new SqlHelper();
+      this._getUser();
+      this._queryMessage();
     }
     componentDidMount() {
       DeviceEventEmitter.addListener('saveMessage', function(e: Event) {
          // handle event.
          console.log('bn saveMessage:',e)
-         sqlHelper.insertMessageDB(e.title,e.text);
+         this._queryMessage();
        });
     }
     componentWillUnmount(){

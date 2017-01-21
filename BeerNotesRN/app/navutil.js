@@ -16,8 +16,16 @@ import LoginVC from './more/loginvc';
 import RegisterVC from './more/registervc';
 import ForgetVC from './more/forgetvc';
 import ModifyVC from './more/modifyvc';
-import RelatedVC from './related/relatedvc';
+
+import WebsiteVC from './related/websitevc';
 import RelatedwebVC from './related/relatedwebvc';
+import RelatedTableVC from './related/relatedtablevc';
+import WNumberVC from './related/wnumbervc';
+
+import CloudFormulaVC from './formula/cloudformulavc';
+import FormulaCommentVC from './formula/formulacommentvc';
+import CloudFormulaContentVC from './formula/cformulacontentvc';
+import KnowbrewVC from './knowbrew/knowbrewvc';
 
 export default class NavUitl extends React.Component {
   static renderPage(route, nav) {
@@ -64,11 +72,29 @@ export default class NavUitl extends React.Component {
       case 'modifyvc':
         return(<ModifyVC nav={nav}/>);
         break;
-      case 'relatedvc':
-        return(<RelatedVC nav={nav}/>);
+      case 'websitevc':
+        return(<WebsiteVC nav={nav}/>);
         break;
       case 'relatedwebvc':
         return(<RelatedwebVC nav={nav} url={route.url} rname={route.rname}/>);
+        break;
+      case 'cloudformulavc':
+        return(<CloudFormulaVC nav={nav}/>);
+        break;
+      case 'formulacommentvc':
+        return(<FormulaCommentVC nav={nav} fid={route.fid} fcid={route.fcid}/>);
+        break;
+      case 'cformulacontentvc':
+        return(<CloudFormulaContentVC nav={nav} fid={route.fid} fname={route.fname}/>);
+      break;
+      case 'relatedtablevc':
+        return(<RelatedTableVC nav={nav}/>);
+        break;
+      case 'wnumbervc':
+        return(<WNumberVC nav={nav}/>);
+        break;
+      case 'knowbrewvc':
+        return(<KnowbrewVC nav={nav}/>);
         break;
 		}
 	}
