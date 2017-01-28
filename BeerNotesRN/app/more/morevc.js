@@ -48,6 +48,10 @@ var listData= [
   {
   text:'用户反馈',
   img:require('../../resource/feedback_normal.png')
+  },
+  {
+    text:'关于我们',
+    img:require('../../resource/about_normal.png')
   }
 ];
 var ds = null;
@@ -66,6 +70,12 @@ export default class MoveVC extends React.Component {
     this.props.nav.push({
       id:'bnfeedbcakvc',
       name:'bnfeedbcakvc',
+    })
+  }
+  _goAbout(){
+    this.props.nav.push({
+      id:'aboutvc',
+      name:'aboutvc',
     })
   }
   _getUser(){
@@ -114,6 +124,8 @@ export default class MoveVC extends React.Component {
       }else{
         AppManager.startFeedbackActivity();
       }
+    }else if(rowID == 3){
+      this._goAbout();
     }
    }
    _checkUpdate() {

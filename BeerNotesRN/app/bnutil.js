@@ -60,6 +60,18 @@ export default class BNUtil{
     item.islove = formla.Islove;
     return item;
   }
+
+  static cloneKnowbrew(knowbrew){
+    console.log("cloneKnowbrew:",knowbrew)
+    var item =new Object();
+    item.id = knowbrew.Id
+    item.title = knowbrew.Title;
+    item.brief = knowbrew.Brief;
+    item.link = knowbrew.Link;
+    item.type = knowbrew.Type;
+    return item;
+  }
+
   //JavaScript函数：
   static getDateDiff(dateTimeStamp){
       var now = new Date().getTime();

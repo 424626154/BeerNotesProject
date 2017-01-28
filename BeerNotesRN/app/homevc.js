@@ -37,10 +37,10 @@ import _updateConfig from '../update.json';
 const {appKey} = _updateConfig[Platform.OS];
 
 var listData= [
-  // {
-  // text:'初识精酿',
-  // img:require('../resource/knowbrew_normal.png')
-  // },
+  {
+  text:'初识精酿',
+  img:require('../resource/knowbrew_normal.png')
+  },
   {
   text:'共享配方',
   img:require('../resource/fname_normal.png')
@@ -142,22 +142,21 @@ export default class HomeVC extends React.Component {
       console.log("globaldata:",globaldata)
     }
     _pressRow(rowID){
-      // if(rowID == 0){
-      //   this._goKnowBrew();
-      // }else
       if(rowID == 0){
-        this._goCloudFormulaVC();
+        this._goKnowBrew();
       }else if(rowID == 1){
-        this._goFormulaVC();
+        this._goCloudFormulaVC();
       }else if(rowID == 2){
-        this._goAlcoholDegreeVC();
+        this._goFormulaVC();
       }else if(rowID == 3){
-        this._goCo2VC();
+        this._goAlcoholDegreeVC();
       }else if(rowID == 4){
-        this._goRelated();
+        this._goCo2VC();
       }else if(rowID == 5){
-        this._goMessageVC();
+        this._goRelated();
       }else if(rowID == 6){
+        this._goMessageVC();
+      }else if(rowID == 7){
         this._goMorevc();
       }
     }

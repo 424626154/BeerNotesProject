@@ -15,6 +15,7 @@ import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.bbs.beernotes.rnview.AppConfig;
 import com.bbs.beernotes.rnview.AppReactPackage;
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 
 import cn.reactnative.modules.update.UpdateContext;
 import cn.reactnative.modules.update.UpdatePackage;
@@ -49,6 +50,8 @@ import static com.bbs.beernotes.rnview.AppConfig.Umeng_appkey;
 import static com.bbs.beernotes.rnview.AppConfig.Umeng_channelId;
 import static com.bbs.beernotes.rnview.AppConfig.isCrashEnable;
 
+//import com.imagepicker.ImagePickerPackage; // <-- add this import
+
 public class MainApplication extends Application implements ReactApplication {
   private static final String TAG = MainApplication.class.getName();
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -67,9 +70,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
             new UpdatePackage(),
             new RealmReactPackage(),
               new AppReactPackage()
+//              new ImagePickerPackage() // <-- add this line
       );
     }
   };

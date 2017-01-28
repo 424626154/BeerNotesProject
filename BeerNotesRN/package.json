@@ -9,6 +9,9 @@
   "dependencies": {
     "react": "15.4.1",
     "react-native": "0.39.2",
+    "react-native-checkbox": "^1.1.0",
+    "react-native-checkboxlist": "0.0.8",
+    "react-native-image-picker": "^0.25.1",
     "react-native-loading-spinner-overlay": "^0.4.1",
     "react-native-navbar": "^1.5.4",
     "react-native-update": "^4.0.0",

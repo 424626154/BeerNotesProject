@@ -67,7 +67,7 @@ export default class FormulaVC extends React.Component {
   //上传到云服务器
   _upCloud(rowID){
     var obj = fData[rowID];
-    let data={'token':this.state.token,'fid':obj.fid,'fname':obj.fname,'malts':obj.malts,'hopss':obj.hopss,'yeasts':obj.yeasts,'water':obj.water,'accessoriess':obj.accessoriess};
+    let data={'token':globaldata.token,'fid':obj.fid,'fname':obj.fname,'malts':obj.malts,'hopss':obj.hopss,'yeasts':obj.yeasts,'water':obj.water,'accessoriess':obj.accessoriess};
     let url = "/app/addformula"
     console.log(data)
     NetUitl.postJson(url,data,function (set){
@@ -169,10 +169,8 @@ export default class FormulaVC extends React.Component {
      if(user != null &&user.Username != ''){
        var username = user.Username;
        var token = user.Token
-       this.setState({
-         username:username,
-         token:token,
-       })
+       globaldata.username = username;
+       globaldata.token = token;
      }
    }
 
@@ -423,6 +421,11 @@ export default class FormulaVC extends React.Component {
        tintColor:'#ffffff',
        handler: () => this._goBack(),
      };
+     const rightButtonConfig = {
+         title: '添加',
+         tintColor:'#ffffff',
+         handler: () => this._goAddFormula(),
+       };
     var titleConfig = {
       title: '我的配方',
       tintColor:'#ffffff'
@@ -431,6 +434,7 @@ export default class FormulaVC extends React.Component {
       <View style={{flex: 1}}>
       <NavigationBar
         leftButton={leftButtonConfig}
+        rightButton={rightButtonConfig}
         tintColor={'#34495e'}
         title={titleConfig} />
         <ListView
@@ -439,12 +443,12 @@ export default class FormulaVC extends React.Component {
           dataSource={this.state.dataSource}
           renderRow={this._renderRow.bind(this)}
         />
-        <View style={styles.add} >
+        {/* <View style={styles.add} >
         <TouchableOpacity onPress={()=>this._goAddFormula()}>
         <Image style={styles.addimg}
         source={add_img}></Image>
         </TouchableOpacity>
-        </View>
+        </View> */}
         <Spinner visible={this.state.visible} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
       </View >
     );

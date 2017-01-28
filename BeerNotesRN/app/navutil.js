@@ -16,6 +16,7 @@ import LoginVC from './more/loginvc';
 import RegisterVC from './more/registervc';
 import ForgetVC from './more/forgetvc';
 import ModifyVC from './more/modifyvc';
+import AboutVC from './more/aboutvc';
 
 import WebsiteVC from './related/websitevc';
 import RelatedwebVC from './related/relatedwebvc';
@@ -26,6 +27,8 @@ import CloudFormulaVC from './formula/cloudformulavc';
 import FormulaCommentVC from './formula/formulacommentvc';
 import CloudFormulaContentVC from './formula/cformulacontentvc';
 import KnowbrewVC from './knowbrew/knowbrewvc';
+import AddKnowbrewVC from './knowbrew/addknowbrewvc'
+import KnowberwconVC from './knowbrew/knowberwconvc'
 
 export default class NavUitl extends React.Component {
   static renderPage(route, nav) {
@@ -95,6 +98,15 @@ export default class NavUitl extends React.Component {
         break;
       case 'knowbrewvc':
         return(<KnowbrewVC nav={nav}/>);
+        break;
+      case 'aboutvc':
+        return(<AboutVC nav={nav}/>);
+        break;
+      case 'addknowbrewvc':
+        return(<AddKnowbrewVC nav={nav}/>);
+        break;
+        case 'knowberwconvc':
+          return(<KnowberwconVC nav={nav} url={route.url} kbname={route.kbname}/>);
         break;
 		}
 	}
