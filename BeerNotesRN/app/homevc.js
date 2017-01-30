@@ -239,10 +239,11 @@ export default class HomeVC extends React.Component {
       this._queryMessage();
     }
     componentDidMount() {
+      var reg = this;
       DeviceEventEmitter.addListener('saveMessage', function(e: Event) {
          // handle event.
          console.log('bn saveMessage:',e)
-         this._queryMessage();
+         reg._queryMessage();
        });
     }
     componentWillUnmount(){

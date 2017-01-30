@@ -39,7 +39,7 @@
 //  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 #if DEBUG
   // 原来的jsCodeLocation
-  NSString *url = [NSString stringWithFormat:@"http://%@:8081/index.ios.bundle?platform=ios&dev=true",IP];
+  NSString *url = [NSString stringWithFormat:@"http://%@:8081/index.ios.bundle?platform=ios&dev=true",DEBUG_IP];
   jsCodeLocation = [NSURL URLWithString:url];
 #else
   jsCodeLocation=[RCTHotUpdate bundleURL];
@@ -195,7 +195,7 @@
 {
   NSString *URLString = @"";
   if(ISDEBUG == YES){
-    URLString = [NSString stringWithFormat:@"http://%@:5000/app/uploadtoken",IP];
+    URLString = [NSString stringWithFormat:@"http://%@:5000/app/uploadtoken",DEBUG_IP];
   }else{
     URLString = [NSString stringWithFormat:@"http://%@:5000/app/uploadtoken",IP];
   }

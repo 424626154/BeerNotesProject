@@ -41,16 +41,16 @@ var listData= [
     text:'未登录',
     img:require('../../resource/notlogin_head_normal.png')
   },
-  {
-  text:'版本号 1.0.1',
-  img:require('../../resource/version_normal.png')
-  },
+  // {
+  // text:'版本号 1.0.1',
+  // img:require('../../resource/version_normal.png')
+  // },
   {
   text:'用户反馈',
   img:require('../../resource/feedback_normal.png')
   },
   {
-    text:'关于我们',
+    text:'关于',
     img:require('../../resource/about_normal.png')
   }
 ];
@@ -115,16 +115,16 @@ export default class MoveVC extends React.Component {
     console.log(rowID);
     if(rowID == 0 ){
       this._goLogin();
-    }else if(rowID == 1 ){
+    // }else if(rowID == 1 ){
       // this._checkUpdate();
-    }else if(rowID == 2){
+    }else if(rowID == 1){
       console.log(Platform.OS)
       if(Platform.OS === 'ios'){
         this._goIosFeedback();
       }else{
         AppManager.startFeedbackActivity();
       }
-    }else if(rowID == 3){
+    }else if(rowID == 2){
       this._goAbout();
     }
    }
@@ -250,7 +250,7 @@ export default class MoveVC extends React.Component {
     };
   }
   componentDidMount() {
-    this._getAppVersion();
+    // this._getAppVersion();
     this._getUser();
     this.subscription = DeviceEventEmitter.addListener('loginSuccess',this._refesh_user);
     this.subscription = DeviceEventEmitter.addListener('registerSuccess',this._refesh_user);
