@@ -27,8 +27,11 @@ import CloudFormulaVC from './formula/cloudformulavc';
 import FormulaCommentVC from './formula/formulacommentvc';
 import CloudFormulaContentVC from './formula/cformulacontentvc';
 import KnowbrewVC from './knowbrew/knowbrewvc';
-import AddKnowbrewVC from './knowbrew/addknowbrewvc'
-import KnowberwconVC from './knowbrew/knowberwconvc'
+import AddKnowbrewVC from './knowbrew/addknowbrewvc';
+import KnowberwconVC from './knowbrew/knowberwconvc';
+import BusinessVC from './business/businessvc';
+import BusinesswebVC from './business/businesswebvc';
+import BittervalueVC from './bittervalue/bittervaluevc';
 
 export default class NavUitl extends React.Component {
   static renderPage(route, nav) {
@@ -105,8 +108,17 @@ export default class NavUitl extends React.Component {
       case 'addknowbrewvc':
         return(<AddKnowbrewVC nav={nav}/>);
         break;
-        case 'knowberwconvc':
+      case 'knowberwconvc':
           return(<KnowberwconVC nav={nav} url={route.url} kbname={route.kbname}/>);
+        break;
+      case 'businessvc':
+        return(<BusinessVC nav={nav}/>);
+        break;
+      case 'businesswebvc':
+        return(<BusinesswebVC nav={nav} url={route.url} rname={route.rname}/>);
+        break;
+      case 'bittervaluevc':
+        return(<BittervalueVC nav={nav}/>);
         break;
 		}
 	}

@@ -58,8 +58,16 @@ var listData= [
   img:require('../resource/co2_normal.png')
   },
   {
-    text:'相关资料',
-    img:require('../resource/related_normal.png')
+  text:'苦度',
+  img:require('../resource/bittervalue_normal.png')
+  },
+  {
+  text:'相关资料',
+  img:require('../resource/related_normal.png')
+  },
+  {
+  text:'相关周边',
+  img:require('../resource/business_normal.png')
   },
   {
   text:'消息',
@@ -106,10 +114,25 @@ export default class HomeVC extends React.Component {
         name:'co2vc'
       })
     }
+    //苦度值
+    _goBittervalueVC(){
+      this.props.nav.push({
+        id:'bittervaluevc',
+        name:'bittervaluevc'
+      })
+    }
+    //相关资料
     _goRelated(){
       this.props.nav.push({
         id:'relatedtablevc',
         name:'relatedtablevc'
+      })
+    }
+    //相关周边
+    _goBusiness(){
+      this.props.nav.push({
+        id:'businessvc',
+        name:'businessvc'
       })
     }
     _goMessageVC(){
@@ -153,10 +176,14 @@ export default class HomeVC extends React.Component {
       }else if(rowID == 4){
         this._goCo2VC();
       }else if(rowID == 5){
-        this._goRelated();
+        this._goBittervalueVC();
       }else if(rowID == 6){
-        this._goMessageVC();
+        this._goRelated();
       }else if(rowID == 7){
+        this._goBusiness();
+      }else if(rowID == 8){
+        this._goMessageVC();
+      }else if(rowID == 9){
         this._goMorevc();
       }
     }

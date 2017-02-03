@@ -1,0 +1,136 @@
+'use strict';
+import React, { Component } from 'react';
+
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  Text,
+  ListView,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+import NavigationBar from 'react-native-navbar';
+import NetUitl from "../netutil";
+
+var listData = [];
+var ds = null;
+
+export default class BusinessVC extends React.Component {
+  _goBack(){
+    this.props.nav.pop();
+  }
+  _goBusinessweb(data){
+    this.props.nav.push({
+      id:'businesswebvc',
+      name:'businesswebvc',
+      rname:data.Title,
+      url:data.Link
+    })
+  }
+  _queryBusiness(){
+    var tag = this;
+    let data={};
+    let url = "/app/business";
+    NetUitl.postJson(url,data,function (set){
+      console.log("errmsg:",set.errmsg);
+        switch (set.errcode) {
+          case 0:
+            console.log("data:",set.data);
+            if(set.data != null){
+              console.log("set.data :",set.data )
+                var objs = JSON.parse(set.data);
+                if(objs != null){
+                  listData = objs;
+                  tag.setState({
+                    dataSource: ds.cloneWithRows(listData)
+                  })
+                }
+            }
+            break;
+          default:
+            Alert.alert(set.errmsg);
+            break;
+        }
+      });
+  }
+  _pressRow(rowID){
+    this._goBusinessweb(listData[rowID]);
+  }
+  _renderRow(rowData, sectionID, rowID){
+    return(
+      <TouchableOpacity onPress={()=>this._pressRow(rowID)}>
+      <View >
+        <View style={styles.row}>
+        <Text style={styles.text}>
+          {rowData.Title}
+        </Text>
+          <Text style={styles.text}>
+            {rowData.Brief}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+    )
+  }
+  constructor(props){
+    super(props);
+    this.state = {
+      demo:'',
+    }
+    ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(listData),
+    };
+  }
+  componentDidMount() {
+    this._queryBusiness();
+  }
+  componentWillUnmount(){
+
+  }
+  render(){
+    const leftButtonConfig = {
+       title: '返回',
+       tintColor:'#ffffff',
+       handler: () => this._goBack(),
+     };
+    var titleConfig = {
+      title: '相关周边',
+      tintColor:'#ffffff'
+    };
+    return(
+      <View style={{flex: 1}}>
+      <NavigationBar
+        leftButton={leftButtonConfig}
+        tintColor={'#34495e'}
+        title={titleConfig} />
+        <ListView
+        enableEmptySections={true}
+        dataSource={this.state.dataSource}
+        renderRow={this._renderRow.bind(this)}/>
+      </View >
+    );
+  }
+}
+
+var styles = StyleSheet.create({
+  row: {
+    flexDirection: 'column',
+     justifyContent: 'center',
+     padding: 10,
+     borderWidth: 1,
+     borderRadius: 5,
+     borderColor: '#CCC',
+     backgroundColor: '#F6F6F6',
+     margin:5,
+     alignItems:'flex-start',
+  },
+  text: {
+    flex: 1,
+    marginTop: 5,
+    textAlign:'left',
+    fontWeight: 'bold'
+  },
+});
