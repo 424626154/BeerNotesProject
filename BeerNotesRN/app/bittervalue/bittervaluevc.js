@@ -352,6 +352,7 @@ export default class BittervalueVC extends React.Component {
         uratio = 28;
       }
     }
+    console.log("time:",time,"beerp:",beerp,"uratio:",uratio);
     return uratio;
   }
   constructor(props){

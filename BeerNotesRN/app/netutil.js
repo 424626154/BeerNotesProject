@@ -14,7 +14,7 @@ class NetUitl extends React.Component {
   *callback:回调函数
   */
   static  postFrom(url, data, callback) {
-      url = "http://"+BNConfig.getIP()+":5000"+url;
+      url = "http://"+BNConfig.getIP()+":"+BNConfig.getPort()+url;
       var fetchOptions = {
         method: 'POST',
         headers: {
@@ -28,6 +28,8 @@ class NetUitl extends React.Component {
       .then((response) => response.text())
       .then((responseText) => {
         callback(JSON.parse(responseText));
+      }).catch((error) => {
+            console.log("err:"+error);
       }).done();
     }
   /**
@@ -36,7 +38,7 @@ class NetUitl extends React.Component {
   *callback:回调函数
   */
 static postJson (url, data, callback) {
-  url = "http://"+BNConfig.getIP()+":5000"+url;
+  url = "http://"+BNConfig.getIP()+":"+BNConfig.getPort()+url;
   console.log("url:",url);
     var fetchOptions = {
       method: 'POST',
@@ -52,6 +54,8 @@ static postJson (url, data, callback) {
     .then((response) => response.text())
     .then((responseText) => {
       callback(JSON.parse(responseText));
+    }).catch((error) => {
+          console.log("err:"+error);
     }).done();
   }
   //get请求

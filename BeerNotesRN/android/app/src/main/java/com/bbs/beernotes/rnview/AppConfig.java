@@ -12,6 +12,6 @@ public class AppConfig {
      public static final String Umeng_channelId = "h_android";
      public static final String Umeng_appkey = "5846ec8eae1bf8125b000d7d";
      public static final String IP = "182.92.167.29";
-     public static final String DEBUG_IP = "192.168.1.6";
+     public static final String DEBUG_IP = "192.168.1.8";
      public static final int HOST = 5000;
 }

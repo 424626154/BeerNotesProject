@@ -8,7 +8,8 @@ const entrance = 'homevc';
 // const entrance = 'morevc';
 const isdebug = false;
 const ip = "182.92.167.29";
-const debug_id = "192.168.1.111";
+const debug_id = "192.168.1.8";
+const post = "9090";
 export default class BNConfig extends Component {
   static getEntrance(){
     return entrance;
@@ -19,5 +20,8 @@ export default class BNConfig extends Component {
     }else{
           return ip;
     }
+  }
+  static getPort(){
+    return post;
   }
 }
