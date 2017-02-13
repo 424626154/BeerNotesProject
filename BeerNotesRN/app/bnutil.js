@@ -106,7 +106,7 @@ export default class BNUtil{
       return result;
   }
   static getImagePath(image){
-    var path = "http://"+BNConfig.getIP()+":"+5000+"/imagehosting/"+image;
+    var path = "http://"+BNConfig.getIP()+":"+BNConfig.getPort()+"/imagehosting/"+image;
     return path;
   }
 }
